@@ -1,0 +1,33 @@
+//TODO Update Changelog
+
+0.2.2:
+
+0.2.1:
+*armors crafted with all alloys now have appropriate colors
++added the ability to dye armors and make them invisible
++jetpacks are half implemented
+
+0.2.0:
+*fixed a derp bug with the absorb ratio being incorrectly calculated for special damage types
+*fixed several creative only crashes
++Began work on alloys
++switched ingot quanity to doubles (making way for alloys)
++fixed weight on creatively spawned armor
+*basically rewrote everything....
+*added tool tips to base materials (shift to show)
+
+0.1.3:
+*Fixed a speed derp bug, forgot to actually listen...
++Added error handling for no NBT data
+*Fixed creative mode crash
+
+0.1.2:
+*Fixed: Players Renedering incorrectly when taking damage
++Improved ingot friendly name
+*Fixed: weight not being applied properly, now maybe servers will work
++Reorganized Code And Overall layout
++Implemented new trait system, also added tool tips for traits
+
+
+0.1.1:
+*Fixed: crashing on servers (modelBiped)
