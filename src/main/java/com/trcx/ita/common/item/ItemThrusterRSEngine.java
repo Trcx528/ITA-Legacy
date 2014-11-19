@@ -14,6 +14,6 @@ public class ItemThrusterRSEngine extends CompoundMaterial{
 
     @Override
     public void addProperties(ITAArmorProperties props) {
-        props.FuelRegenRate ++;
+        props.FuelRegenRate += 0.25;
     }
 }

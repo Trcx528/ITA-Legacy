@@ -1,6 +1,5 @@
 package com.trcx.ita.common.item;
 
-import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.recipes.ThrusterCasingRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -13,9 +12,7 @@ public class ItemThrusterCasing extends CompoundMaterial {
     }
 
     @Override
-    public void addProperties(ITAArmorProperties props) {
-        if (props.MaxFuel == 0)
-            props.MaxFuel = 200D;
-        props.MaxFuel += 100D;
+    public Boolean isValidForType(int ArmorType) {
+        return false;
     }
 }

@@ -1,6 +1,3 @@
--Add RS Thruster Fuel Increase
--Add RS Thruster Rapid Recharging
--Fix Fuel Calculation Bug
 -Step Assist Module
 -Speed Boost Module (keypress)
 -Swim Boost

@@ -14,6 +14,7 @@ public class PlayerProperties {
     //we can make these public because a new object is created each tick so they will always be up to date
     public double Weight = 0D;
     public double Fuel = 0D;
+    public double MaxFuel = 0D;
     public double Regen = 0D;
 
     private Map<ITAArmorProperties, ItemStack> armorMap = new HashMap<ITAArmorProperties, ItemStack>();
@@ -30,6 +31,7 @@ public class PlayerProperties {
                     this.Weight += props.Weight;
                     this.Fuel += props.RemainingFuel;
                     this.Regen += props.FuelRegenRate;
+                    this.MaxFuel += props.MaxFuel;
                     armorMap.put(new ITAArmorProperties(is), is);
                 }
             }

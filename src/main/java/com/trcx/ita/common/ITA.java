@@ -30,6 +30,7 @@ public class ITA {
     public static Item Thruster;
     public static Item ThrusterCasing;
     public static Item ThrusterRSEngine;
+    public static Item BasicCapacitor;
 
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
@@ -196,6 +197,7 @@ public class ITA {
         Thruster = new ItemThruster().setUnlocalizedName("Thruster").setTextureName("ITA:Thruster");
         ThrusterCasing = new ItemThrusterCasing().setUnlocalizedName("ThrusterCasing").setTextureName("ITA:ThrusterCasing");
         ThrusterRSEngine = new ItemThrusterRSEngine().setUnlocalizedName("ThrusterRSEngine").setTextureName("ITA:ThrusterRSEngine");
+        BasicCapacitor = new ItemCapacitor().setUnlocalizedName("BasicCapacitor").setTextureName("ITA:Capacitor");
 	}
 
     public static void RegisterRecipes() {

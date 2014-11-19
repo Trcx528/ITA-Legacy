@@ -20,8 +20,6 @@ public class ItemThruster extends CompoundMaterial {
 
     @Override
     public void addProperties(ITAArmorProperties props) {
-        if (props.MaxFuel <= 0){
-            props.MaxFuel = 200;
-        }
+        props.MaxFuel += 100;
     }
 }

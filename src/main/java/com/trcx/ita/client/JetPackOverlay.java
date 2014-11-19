@@ -2,6 +2,7 @@ package com.trcx.ita.client;
 
 import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.properties.ITAArmorProperties;
+import com.trcx.ita.common.properties.PlayerProperties;
 import com.trcx.ita.common.traits.BasicFlightTrait;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -30,24 +31,10 @@ public class JetPackOverlay extends Gui {
         if (event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             return;
         }
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-        ArrayList<ITAArmorProperties> JetPacks = new ArrayList<ITAArmorProperties>();
-        for (int i =0; i < 4 ; i++) {
-            ItemStack is = player.getCurrentArmor(i);
-            if (is != null && (is.getItem() == ITA.BasicBoots || is.getItem() == ITA.BasicLeggings ||
-                    is.getItem() == ITA.BasicChestplate || is.getItem() == ITA.BasicHelmet)) {
-                ITAArmorProperties props = new ITAArmorProperties(is);
-                if (props.canFly())
-                    JetPacks.add(props);
-            }
-        }
-        int x =2 ;
-        int y =2;
-        DecimalFormat df = new DecimalFormat("#.#");
-        for (ITAArmorProperties jetpack: JetPacks){
-            this.drawString(Minecraft.getMinecraft().fontRenderer, "Fuel: " + df.format(jetpack.RemainingFuel) + "/"
-                    + BasicFlightTrait.MAX_FLIGHTTIME, x, y, 0xFFFFFF);
-            y += 12;
+        PlayerProperties PlayerProps = new PlayerProperties(Minecraft.getMinecraft().thePlayer);
+        if (PlayerProps.MaxFuel > 0) {
+            DecimalFormat df = new DecimalFormat("#");
+            this.drawString(Minecraft.getMinecraft().fontRenderer, "Fuel: " + df.format(PlayerProps.Fuel) + "/" + df.format(PlayerProps.MaxFuel), 2 /*x*/, 2 /*y*/, 0xFFFFFF);
         }
     }
 }
