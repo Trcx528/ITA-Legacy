@@ -1,8 +1,9 @@
 package com.trcx.ita.common.utility;
 
-import com.trcx.ita.common.material.BaseMaterialProperty;
+import com.trcx.ita.common.properties.BaseMaterialProperty;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.material.BaseProperty;
+import com.trcx.ita.common.properties.BaseProperty;
+import com.trcx.ita.common.properties.PlayerProperties;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -50,7 +51,7 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        float speedModifier = Math.min((float) (Miscellaneous.getPlayerWeight(player)) / 10, 0.49F);
+        float speedModifier = Math.min((float) (new PlayerProperties(player).Weight - 1) / 10, 0.49F);
         //if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
         if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
             player.moveFlying(0F, 1F, 0.00F - speedModifier);

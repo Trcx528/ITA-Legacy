@@ -1,12 +1,6 @@
 package com.trcx.ita.common.utility;
 
-import com.trcx.ita.common.material.BaseMaterialProperty;
-import com.trcx.ita.common.material.BaseProperty;
-import com.trcx.ita.common.material.ITAArmorProperties;
-import com.trcx.ita.common.ITA;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-
+import com.trcx.ita.common.properties.BaseProperty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,20 +10,10 @@ import java.util.Map;
  */
 public class Miscellaneous {
 
-    public static double getPlayerWeight(EntityPlayer player) {
-        double totalWeight = 0;
-        for (int i = 0; i < 4; i++) {
-            ItemStack is = player.getCurrentArmor(i);
-            if (is != null) {
-                if (is.getItem() == ITA.BasicBoots || is.getItem() == ITA.BasicLeggings ||
-                        is.getItem() == ITA.BasicChestplate || is.getItem() == ITA.BasicHelmet) {
-                    totalWeight += new ITAArmorProperties(is).Weight;
-                }
-            }
-        }
-        totalWeight /= 4;
-        return totalWeight;
-    }
+    public static final int ARMOR_TYPE_HELMET = 3;
+    public static final int ARMOR_TYPE_CHESTPLATE = 2;
+    public static final int ARMOR_TYPE_LEGGIGNGS = 1;
+    public static final int ARMOR_TYPE_BOOTS = 0;
 
     public static BaseProperty calculateBaseProps(List<BaseProperty> props){
         Map<String, Double> ColorMap = new HashMap<String, Double>();

@@ -1,11 +1,9 @@
 package com.trcx.ita.common.recipes;
 
-import com.trcx.ita.common.material.BaseMaterialProperty;
 import com.trcx.ita.common.item.CompoundMaterial;
-import com.trcx.ita.common.material.BaseProperty;
-import com.trcx.ita.common.material.CompoundMaterialProperties;
+import com.trcx.ita.common.properties.BaseProperty;
+import com.trcx.ita.common.properties.CompoundMaterialProperties;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.utility.ColorHelper;
 import com.trcx.ita.common.utility.Miscellaneous;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;

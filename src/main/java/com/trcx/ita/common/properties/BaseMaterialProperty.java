@@ -1,4 +1,4 @@
-package com.trcx.ita.common.material;
+package com.trcx.ita.common.properties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class BaseMaterialProperty extends BaseProperty{
         this.OreDictionaryName = oreDictionaryName;
         this.Name = "";
         for (String namepart: oreDictionaryName.substring(5).split("(?=\\p{Upper})")){
-            if (this.Name == ""){
+            if (this.Name.equals("")){
                 this.Name = namepart;
             } else {
                 this.Name = this.Name + " " + namepart;

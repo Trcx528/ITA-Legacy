@@ -2,7 +2,7 @@ package com.trcx.ita.client;
 
 import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.Main;
-import com.trcx.ita.common.material.ITAArmorProperties;
+import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.network.PacketKey;
 import com.trcx.ita.common.utility.KeySync;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -15,11 +15,8 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
-
-import java.util.Map;
 
 /**
  * Created by JPiquette on 11/13/2014.
@@ -66,7 +63,6 @@ public class ITAKeybindings {
             if (this.FLY != (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed())) {
                 this.FLY = (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed());
                 KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.FLY, this.FLY);
-                System.out.println("Sending FLY Packet to the server " + this.FLY);
                 Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.FLY, this.FLY));
             } else if (this.DESCEND != (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed())) {
                 this.DESCEND = (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed());

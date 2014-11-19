@@ -1,7 +1,7 @@
 package com.trcx.ita.common.item;
 import com.trcx.ita.client.BasicArmorRenderer;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.material.ITAArmorProperties;
+import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.traits.BaseTrait;
 import com.trcx.ita.common.utility.ColorHelper;
 import cpw.mods.fml.relauncher.Side;

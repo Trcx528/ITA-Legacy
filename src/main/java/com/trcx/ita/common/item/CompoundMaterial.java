@@ -1,11 +1,11 @@
 package com.trcx.ita.common.item;
 
-import com.trcx.ita.common.material.CompoundMaterialProperties;
+import com.trcx.ita.common.properties.CompoundMaterialProperties;
+import com.trcx.ita.common.properties.ITAArmorProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import org.lwjgl.input.Keyboard;
 
 import java.util.List;
@@ -15,9 +15,11 @@ import java.util.List;
  */
 public class CompoundMaterial extends Item {
 
-    @Override
-    public IIcon getIconFromDamageForRenderPass(int p_77618_1_, int p_77618_2_) {
-        return super.getIconFromDamageForRenderPass(p_77618_1_, p_77618_2_);
+    public void addProperties(ITAArmorProperties props){
+    }
+
+    public Boolean isValidForType(int ArmorType){
+        return true;
     }
 
     @Override

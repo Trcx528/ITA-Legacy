@@ -1,4 +1,4 @@
-package com.trcx.ita.common.material;
+package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.item.ItemBasicArmor;
 import com.trcx.ita.common.ITA;
@@ -20,14 +20,21 @@ public class ITAArmorProperties extends BaseProperty {
     public int Durability = 0;
     public short ArmorType = 0;
     public boolean Invisible = false;
-    public double RemainingFlight = 0;
+    public double RemainingFuel = 0;
+    public double MaxFuel = 0;
+    public double FuelRegenRate = 1;
     public NBTTagList ench = null;
 
     private static String NBTSHIELDDISPLAYVALUE = "shields";
     private static String NBTBASEMATERIALS = "basematerials";
     private static String NBTINVISIBLE = "invisible";
     private static String NBTFLIGHTTIME = "remainingFlight";
+    private static String NBTMAXFLIGHTTIME = "maxFlight";
+    private static String NBTFLIGHTRECHARGERATE ="flightRecharge";
 
+    public double getFuelPercetage(){
+        return this.RemainingFuel / this.MaxFuel;
+    }
 
     public boolean canFly(){
         return this.Traits.containsKey("basicFlight");
@@ -73,7 +80,9 @@ public class ITAArmorProperties extends BaseProperty {
         NBTTagCompound nbt = super.getTagCompound();
         nbt.setShort(NBTSHIELDDISPLAYVALUE, this.ShieldDisplayValue);
         nbt.setBoolean(NBTINVISIBLE, this.Invisible);
-        nbt.setDouble(NBTFLIGHTTIME, this.RemainingFlight);
+        nbt.setDouble(NBTFLIGHTTIME, this.RemainingFuel);
+        nbt.setDouble(NBTMAXFLIGHTTIME, this.MaxFuel);
+        nbt.setDouble(NBTFLIGHTRECHARGERATE, this.FuelRegenRate);
         if (this.ench != null)
             nbt.setTag("ench", ench);
         NBTTagCompound baseMaterials = new NBTTagCompound();
@@ -102,6 +111,8 @@ public class ITAArmorProperties extends BaseProperty {
             dataList.add(EnumChatFormatting.RED + "Resistance: " + df.format(this.Resistance));
         if (this.Invisible)
             dataList.add(EnumChatFormatting.WHITE + "" + EnumChatFormatting.ITALIC + "Invisible");
+        if (this.MaxFuel > 0)
+            dataList.add(EnumChatFormatting.GRAY + "Fuel: " + df.format(this.RemainingFuel) + "/" + this.MaxFuel + EnumChatFormatting.RESET);
         for (String trait: this.Traits.keySet()){
             String ttt = ITA.getTrait(trait).getToolTip(this);
             if (ttt != null)
@@ -123,7 +134,9 @@ public class ITAArmorProperties extends BaseProperty {
                 this.ench = nbt.getTagList("ench", Constants.NBT.TAG_COMPOUND);
             this.ShieldDisplayValue = nbt.getShort(NBTSHIELDDISPLAYVALUE);
             this.Invisible = nbt.getBoolean(NBTINVISIBLE);
-            this.RemainingFlight = nbt.getDouble(NBTFLIGHTTIME);
+            this.RemainingFuel = nbt.getDouble(NBTFLIGHTTIME);
+            this.MaxFuel = nbt.getDouble(NBTMAXFLIGHTTIME);
+            this.FuelRegenRate = nbt.getDouble(NBTFLIGHTRECHARGERATE);
             NBTTagCompound baseMaterials = nbt.getCompoundTag(NBTBASEMATERIALS);
             Set<String> keys = baseMaterials.func_150296_c();
             for (String key : keys) {

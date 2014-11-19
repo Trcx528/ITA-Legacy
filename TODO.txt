@@ -1,0 +1,19 @@
+-Add RS Thruster Fuel Increase
+-Add RS Thruster Rapid Recharging
+-Fix Fuel Calculation Bug
+-Step Assist Module
+-Speed Boost Module (keypress)
+-Swim Boost
+-Night Vision
+-Common Power "Pool"
+-Limit What module can be pair with what armor
+-Balance Resistance values (move resistance to be from 0-16 rather than 0-5)
+-Cleanup NBT Tag names
+-Basic Flight Trait not ticking at login until jump?
+-Add jetpack particle effects
+-(T2) XP Power Consumer
+-Magnet
+
+-Add Tier 3 (Powered Armor)
+  - Powered thruster
+  - Powered Armor Provider

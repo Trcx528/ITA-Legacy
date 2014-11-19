@@ -1,4 +1,7 @@
 //TODO Update Changelog
+0.2.3:
++jetpack fuel is now checked properly when falling
++hover mode now slowly descends based on armor weight
 
 0.2.2:
 +Jetpacks are now done, they are fucntional but will likely be changed and nerfed a fair bit in the future

@@ -1,7 +1,7 @@
 package com.trcx.ita.common.traits;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.trcx.ita.common.material.BaseProperty;
+import com.trcx.ita.common.properties.BaseProperty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -20,7 +20,7 @@ public class BaseTrait {
     private GenericSpecialProtection[] specialProtections;
     private Random rand = new Random();
 
-    public BaseTrait(String name){ this.traitName = name;};
+    public BaseTrait(String name){ this.traitName = name;}
 
     public BaseTrait(String traitName, String traitToolTip, GenericPotionEffect[] potionEffects, GenericSpecialProtection[] specialProtections){
         this.traitName = traitName;
@@ -47,7 +47,7 @@ public class BaseTrait {
         if (specialProtections != null) {
             for(GenericSpecialProtection sp: specialProtections){
                 sp.baseReduction = 0;
-                sp.percentReduction = (double) traitWeight/100;
+                sp.percentReduction = traitWeight/100;
                 absorbRatio += sp.getDamageReductionRatio(source,damage);
             }
         }

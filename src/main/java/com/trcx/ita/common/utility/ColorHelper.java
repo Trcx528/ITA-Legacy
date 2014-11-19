@@ -1,6 +1,6 @@
 package com.trcx.ita.common.utility;
 
-import com.trcx.ita.common.material.BaseMaterialProperty;
+import com.trcx.ita.common.properties.BaseMaterialProperty;
 import com.trcx.ita.common.ITA;
 
 import java.awt.*;

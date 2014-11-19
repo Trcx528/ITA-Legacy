@@ -1,7 +1,6 @@
-package com.trcx.ita.common.material;
+package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.traits.BaseTrait;
 import com.trcx.ita.common.utility.ColorHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

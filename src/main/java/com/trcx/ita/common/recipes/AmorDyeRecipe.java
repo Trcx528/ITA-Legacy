@@ -1,6 +1,6 @@
 package com.trcx.ita.common.recipes;
 
-import com.trcx.ita.common.material.ITAArmorProperties;
+import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.utility.ColorHelper;
 import net.minecraft.init.Blocks;

@@ -1,7 +1,7 @@
 package com.trcx.ita.common.recipes;
 
-import com.trcx.ita.common.material.BaseProperty;
-import com.trcx.ita.common.material.CompoundMaterialProperties;
+import com.trcx.ita.common.properties.BaseProperty;
+import com.trcx.ita.common.properties.CompoundMaterialProperties;
 import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.utility.Miscellaneous;
 import net.minecraft.init.Items;

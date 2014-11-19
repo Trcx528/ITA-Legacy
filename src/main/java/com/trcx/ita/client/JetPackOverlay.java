@@ -1,7 +1,7 @@
 package com.trcx.ita.client;
 
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.material.ITAArmorProperties;
+import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.traits.BasicFlightTrait;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -45,7 +45,7 @@ public class JetPackOverlay extends Gui {
         int y =2;
         DecimalFormat df = new DecimalFormat("#.#");
         for (ITAArmorProperties jetpack: JetPacks){
-            this.drawString(Minecraft.getMinecraft().fontRenderer, "Fuel: " + df.format(jetpack.RemainingFlight) + "/"
+            this.drawString(Minecraft.getMinecraft().fontRenderer, "Fuel: " + df.format(jetpack.RemainingFuel) + "/"
                     + BasicFlightTrait.MAX_FLIGHTTIME, x, y, 0xFFFFFF);
             y += 12;
         }

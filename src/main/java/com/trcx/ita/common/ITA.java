@@ -1,6 +1,6 @@
 package com.trcx.ita.common;
 
-import com.trcx.ita.common.material.*;
+import com.trcx.ita.common.properties.*;
 import com.trcx.ita.common.item.ItemBasicArmor;
 import com.trcx.ita.common.recipes.AlloyRecipe;
 import com.trcx.ita.common.recipes.AmorDyeRecipe;
@@ -96,10 +96,6 @@ public class ITA {
         RegisterTrait(new BasicFlightTrait("basicFlight"));
     }
 
-    public static boolean hasMaterial(String name){
-        return ArmorMaterialRegistry.containsKey(name);
-    }
-
 	public static void RegisterMaterials(){
         //armor factor values
         //4.166666 is 100% protection
@@ -190,7 +186,7 @@ public class ITA {
 	}
 	
 	public static void DefineItems(){
-        //doesn't matter what material we use, the return functions are overridden
+        //doesn't matter what properties we use, the return functions are overridden
 		BasicHelmet = new ItemBasicArmor(ArmorMaterial.IRON, 0).setUnlocalizedName("BasicHelmet").setTextureName("ITA:BasicHelmet");
 		BasicChestplate = new ItemBasicArmor(ArmorMaterial.IRON, 1).setUnlocalizedName("BasicChestplate").setTextureName("ITA:BasicChestplate");
 		BasicLeggings = new ItemBasicArmor(ArmorMaterial.IRON, 2).setUnlocalizedName("BasicLeggings").setTextureName("ITA:BasicLeggings");

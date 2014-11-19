@@ -2,11 +2,9 @@ package com.trcx.ita.common.recipes;
 
 import com.trcx.ita.common.item.CompoundMaterial;
 import com.trcx.ita.common.item.ItemThruster;
-import com.trcx.ita.common.material.*;
+import com.trcx.ita.common.properties.*;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.traits.BaseTrait;
 import com.trcx.ita.common.traits.BasicFlightTrait;
-import com.trcx.ita.common.utility.ColorHelper;
 import com.trcx.ita.common.utility.Miscellaneous;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -16,9 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by JPiquette on 11/4/2014.
@@ -28,12 +24,12 @@ public class ArmorRecipe implements IRecipe {
     private ItemStack getOutput(InventoryCrafting inv, boolean shouldCreate){
         int[] nullSlots = new int[9];
         //Map<String, Double> materials = new HashMap<String, Double>();
+        List<CompoundMaterial> CompoundMaterials = new ArrayList<CompoundMaterial>();
         List<BaseProperty> BaseProps = new ArrayList<BaseProperty>();
         List<String> MaterialList = new ArrayList<String>();
 
         double Resistance = 0D;
         int ResistanceCount = 0;
-
 
         for (int i=0; i<9; i++) {
             if (inv.getStackInSlot(i) == null) {
@@ -42,6 +38,8 @@ public class ArmorRecipe implements IRecipe {
                 if (inv.getStackInSlot(i).getItem() instanceof CompoundMaterial) {
                     nullSlots[i] = 1;
                     CompoundMaterialProperties cmp = new CompoundMaterialProperties(inv.getStackInSlot(i));
+                    CompoundMaterial cm = (CompoundMaterial) inv.getStackInSlot(i).getItem();
+                    CompoundMaterials.add(cm);
                     BaseProps.add(cmp);
                     MaterialList.add(cmp.Name);
                     if (inv.getStackInSlot(i).getItem() instanceof ItemThruster){
@@ -76,21 +74,25 @@ public class ArmorRecipe implements IRecipe {
         short armorType = getTypeFromSlots(nullSlots);
         ItemStack returnStack = new ItemStack(Item.getItemById(0));
         ITAArmorProperties ap =  new ITAArmorProperties(Miscellaneous.calculateBaseProps(BaseProps));
+        for (CompoundMaterial cm: CompoundMaterials){
+            if (!cm.isValidForType(armorType))
+                return null;
+            cm.addProperties(ap);
+        }
         ap.ArmorType = armorType;
         switch (armorType) {
             case -1:
                 return null;
-
-            case 3:
+            case Miscellaneous.ARMOR_TYPE_HELMET:
                 returnStack = new ItemStack(ITA.BasicHelmet);
                 break;
-            case 2:
+            case Miscellaneous.ARMOR_TYPE_CHESTPLATE:
                 returnStack = new ItemStack(ITA.BasicChestplate);
                 break;
-            case 1:
+            case Miscellaneous.ARMOR_TYPE_LEGGIGNGS:
                 returnStack = new ItemStack(ITA.BasicLeggings);
                 break;
-            case 0:
+            case Miscellaneous.ARMOR_TYPE_BOOTS:
                 returnStack = new ItemStack(ITA.BasicBoots);
                 break;
         }
@@ -102,7 +104,7 @@ public class ArmorRecipe implements IRecipe {
             ap.Resistance = Resistance/ResistanceCount;
         returnStack.getItem().setMaxDamage(ap.MaxDurability);
         if (ap.Traits.containsKey("basicFlight"))
-            ap.RemainingFlight = BasicFlightTrait.MAX_FLIGHTTIME;
+            ap.RemainingFuel = BasicFlightTrait.MAX_FLIGHTTIME;
 
         for (String material: MaterialList){
             ap.addMaterial(material, 1D);
