@@ -29,7 +29,7 @@ public class BasicFlightTrait extends BaseTrait {
     public String getToolTip(BaseProperty BP) {
         if (BP instanceof ITAArmorProperties){
             ITAArmorProperties AP = (ITAArmorProperties) BP;
-            double FlightLevel = AP.Traits.get("basicFlight");
+            double FlightLevel = AP.Traits.get(TraitNames.ABILITY_BASIC_FLIGHT);
             DecimalFormat df = new DecimalFormat("#.#");
             return EnumChatFormatting.GREEN + "Flight " + df.format(FlightLevel);
         } else {

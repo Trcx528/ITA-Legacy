@@ -1,6 +1,7 @@
 package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.ITA;
+import com.trcx.ita.common.traits.TraitNames;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class PlayerProperties {
                         resCount ++;
                     }
                     armorMap.put(new ITAArmorProperties(is), is);
-                    if (props.Traits.containsKey("stepAssist"))
+                    if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_STEPASSIST))
                         this.StepAssist = true;
                 }
             }

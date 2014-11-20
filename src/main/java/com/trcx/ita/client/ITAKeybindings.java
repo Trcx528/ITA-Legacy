@@ -4,6 +4,7 @@ import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.Main;
 import com.trcx.ita.common.properties.ITAArmorProperties;
 import com.trcx.ita.common.network.PacketKey;
+import com.trcx.ita.common.traits.TraitNames;
 import com.trcx.ita.common.utility.KeySync;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -59,9 +60,9 @@ public class ITAKeybindings {
             if (is != null && (is.getItem() == ITA.BasicHelmet || is.getItem() == ITA.BasicChestplate ||
                     is.getItem() == ITA.BasicLeggings || is.getItem() == ITA.BasicBoots)){
                 ITAArmorProperties props = new ITAArmorProperties(is);
-                if (props.Traits.containsKey("basicFlight"))
+                if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_FLIGHT))
                     hasJetpack = true;
-                if (props.Traits.containsKey("sprintAcceleration"))
+                if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_STEPASSIST))
                     hasSprint = true;
             }
         }

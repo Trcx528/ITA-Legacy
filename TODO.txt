@@ -1,6 +1,3 @@
--Speed Boost Module (keypress)
-  - Add Option For Flight (horizontal)
-  - Add swim one
 -Night Vision
 -Balance Resistance values (move resistance to be from 0-16 rather than 0-5)
 -Cleanup NBT Tag names
@@ -8,7 +5,8 @@
 -(T2) XP Power Consumer
 -Magnet
 -Shock Absorbtion module (anti fall damage)
--Rocket Thruster
+-Rocket Thruster (Vertical Speed Boost)
+-Fix enchantment rendering on player
 
 -Add Tier 3 (Powered Armor)
   - Powered thruster

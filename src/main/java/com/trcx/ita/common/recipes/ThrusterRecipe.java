@@ -3,6 +3,7 @@ package com.trcx.ita.common.recipes;
 import com.trcx.ita.common.properties.BaseProperty;
 import com.trcx.ita.common.properties.CompoundMaterialProperties;
 import com.trcx.ita.common.ITA;
+import com.trcx.ita.common.traits.TraitNames;
 import com.trcx.ita.common.utility.Miscellaneous;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -98,7 +99,6 @@ public class ThrusterRecipe implements IRecipe {
         returnProp.Name = "Thruster";
         returnProp.Enchantability = 0;
         returnProp.ArmorFactor = 0D;
-        returnProp.addTrait("basicFlight", 0.5);
         returnStack.stackTagCompound = returnProp.getTagCompound();
         if (craft)
             returnStack.stackSize = 1 ;

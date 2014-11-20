@@ -32,6 +32,8 @@ public class ITA {
     public static Item BasicCapacitor;
     public static Item StepAssistModule;
     public static Item SprintBooster;
+    public static Item FlyBooster;
+    public static Item SwimBooster;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -87,16 +89,18 @@ public class ITA {
         hungerEffect[0] = new GenericPotionEffect(Potion.hunger.id, true,0,100);
 
 
-        RegisterTrait("damageFall","Fall Protection", null, fallProtection);
-        RegisterTrait("damageMagic", "Magical Protection", null,magicProtection);
-        RegisterTrait("damageVoid", "Void Protection", null,voidProtection);
-        RegisterTrait("damageWither", "Wither Protection", null,witherProtection);
-        RegisterTrait("damageStarve", "Starvation Negation", null,starveProtection);
-        RegisterTrait("effectSaturation", "Saturating!", saturationEffect, null);
-        RegisterTrait("effectHunger", "Always Hungry", hungerEffect, null);
-        RegisterTrait(new BasicFlightTrait("basicFlight"));
-        RegisterTrait(new BaseTrait("stepAssist","It's Time To Step Up", null, null));
-        RegisterTrait(new SprintAccelerationTrait("sprintAcceleration"));
+        RegisterTrait(TraitNames.DAMAGE_FALL,"Fall Protection", null, fallProtection);
+        RegisterTrait(TraitNames.DAMAGE_MAGIC, "Magical Protection", null,magicProtection);
+        RegisterTrait(TraitNames.DAMAGE_VOID, "Void Protection", null,voidProtection);
+        RegisterTrait(TraitNames.DAMAGE_WITHER, "Wither Protection", null,witherProtection);
+        RegisterTrait(TraitNames.DAMAGE_STARVE, "Starvation Negation", null,starveProtection);
+        RegisterTrait(TraitNames.POTION_EFFECT_SATURATION, "Saturating!", saturationEffect, null);
+        RegisterTrait(TraitNames.POTION_EFFECT_HUNGER, "Always Hungry", hungerEffect, null);
+        RegisterTrait(new BasicFlightTrait(TraitNames.ABILITY_BASIC_FLIGHT));
+        RegisterTrait(new BaseTrait(TraitNames.ABILITY_BASIC_STEPASSIST));
+        RegisterTrait(new BoostTrait(TraitNames.ABILITY_SPRINT_BOOST, BoostTrait.GROUND_ONLY));
+        RegisterTrait(new BoostTrait(TraitNames.ABILITY_FLIGHT_BOOST, BoostTrait.AIR_ONLY));
+        RegisterTrait(new BoostTrait(TraitNames.ABILITY_SWIM_BOOST, BoostTrait.WATER_ONLY));
     }
 
 	public static void RegisterMaterials(){
@@ -153,25 +157,25 @@ public class ITA {
         RegisterArmorMaterial(2.70, 18, 0  , 45, 1.5, "#CAEAFD", "ingotManasteel");
 
 
-        ArmorMaterialRegistry.get("ingotVoid").addTrait("damageMagic",50);
-        ArmorMaterialRegistry.get("ingotVoid").addTrait("damageVoid",1000);
+        ArmorMaterialRegistry.get("ingotVoid").addTrait(TraitNames.DAMAGE_MAGIC,50);
+        ArmorMaterialRegistry.get("ingotVoid").addTrait(TraitNames.DAMAGE_VOID,1000);
 
-        ArmorMaterialRegistry.get("ingotLumium").addTrait("damageFall", 50);
-        ArmorMaterialRegistry.get("ingotMithril").addTrait("damageMagic", 30);
-        ArmorMaterialRegistry.get("ingotThaumium").addTrait("damageMagic", 25);
+        ArmorMaterialRegistry.get("ingotLumium").addTrait(TraitNames.DAMAGE_FALL, 50);
+        ArmorMaterialRegistry.get("ingotMithril").addTrait(TraitNames.DAMAGE_MAGIC, 30);
+        ArmorMaterialRegistry.get("ingotThaumium").addTrait(TraitNames.DAMAGE_MAGIC, 25);
 
-        ArmorMaterialRegistry.get("ingotYellorium").addTrait("damageWither", 20);
-        ArmorMaterialRegistry.get("ingotBlutonium").addTrait("damageWither", 10);
-        ArmorMaterialRegistry.get("ingotCyanite").addTrait("damageWither", 40);
+        ArmorMaterialRegistry.get("ingotYellorium").addTrait(TraitNames.DAMAGE_WITHER, 20);
+        ArmorMaterialRegistry.get("ingotBlutonium").addTrait(TraitNames.DAMAGE_WITHER, 10);
+        ArmorMaterialRegistry.get("ingotCyanite").addTrait(TraitNames.DAMAGE_WITHER, 40);
 
 
         //trait Weight for potion effects is a dice roll every 20 ticks (Weight <= dice.roll(2000))
         //aka Weight of 1 with 1 ingot will trigger ever 33.33 minutes
-        ArmorMaterialRegistry.get("ingotMeat").addTrait("effectSaturation", 2);
-        ArmorMaterialRegistry.get("ingotPigIron").addTrait("effectSaturation", 6);
-        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait("effectHunger",5);
-        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait("effectSaturation",15);
-        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait("damageStarve", 5);
+        ArmorMaterialRegistry.get("ingotMeat").addTrait(TraitNames.POTION_EFFECT_SATURATION, 2);
+        ArmorMaterialRegistry.get("ingotPigIron").addTrait(TraitNames.POTION_EFFECT_SATURATION, 6);
+        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait(TraitNames.POTION_EFFECT_HUNGER,5);
+        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait(TraitNames.POTION_EFFECT_SATURATION,15);
+        ArmorMaterialRegistry.get("ingotMeatRaw").addTrait(TraitNames.DAMAGE_STARVE, 5);
 
 
     }
@@ -189,6 +193,8 @@ public class ITA {
         GameRegistry.registerItem(BasicCapacitor, "BasicCapacitor");
         GameRegistry.registerItem(StepAssistModule, "StepAssistModule");
         GameRegistry.registerItem(SprintBooster, "SprintBooster");
+        GameRegistry.registerItem(FlyBooster, "FlyBooster");
+        GameRegistry.registerItem(SwimBooster, "SwimBooster");
 	}
 	
 	public static void DefineItems(){
@@ -205,12 +211,23 @@ public class ITA {
         BasicCapacitor = new ItemCapacitor().setUnlocalizedName("BasicCapacitor").setTextureName("ITA:Capacitor");
         StepAssistModule = new ItemStepAssist().setUnlocalizedName("StepAssist").setTextureName("ITA:StepAssist");
         SprintBooster = new ItemSprintBooster().setUnlocalizedName("SprintBooster").setTextureName("ITA:SprintBooster");
+        FlyBooster = new ItemFlightBooster().setUnlocalizedName("FlightBooster").setTextureName("ITA:FlyBooster");
+        SwimBooster = new ItemSwimBooster().setUnlocalizedName("Swim Booster").setTextureName("ITA:SwimBooster");
 	}
 
     public static void RegisterRecipes() {
         //Register These here as new ItemBasicArmor() is called several times
         GameRegistry.addRecipe(new ArmorRecipe());
         GameRegistry.addRecipe(new AmorDyeRecipe());
+
+
+        ItemStack iron = new ItemStack(Items.iron_ingot);
+        ItemStack rsBlock = new ItemStack(Item.getItemFromBlock(Blocks.redstone_block));
+        ItemStack piston = new ItemStack(Item.getItemFromBlock(Blocks.piston));
+        ItemStack rs = new ItemStack(Items.redstone);
+        ItemStack slime = new ItemStack(Items.slime_ball);
+        ItemStack Glowstone = new ItemStack(Items.glowstone_dust);
+        ItemStack Diamond = new ItemStack(Items.diamond);
 
         ItemStack sa = new ItemStack(ITA.StepAssistModule);
         CompoundMaterialProperties cmp = new CompoundMaterialProperties();
@@ -219,10 +236,15 @@ public class ITA {
         cmp.ColorHex = "#D8D8D8"; //make it look like iron
         sa.stackSize = 1;
         sa.stackTagCompound = cmp.getTagCompound();
-        ItemStack piston = new ItemStack(Item.getItemFromBlock(Blocks.piston));
-        ItemStack rs = new ItemStack(Items.redstone);
-        ItemStack slime = new ItemStack(Items.slime_ball);
         GameRegistry.addShapedRecipe(sa, "s", "r", "p", 's', slime, 'r', rs, 'p', piston);
+
+
+        sa = new ItemStack(ITA.AlloyBinder);
+        ItemStack Lapis = new ItemStack(Items.dye);
+        Lapis.setItemDamage(4);
+        sa.stackSize = 5;
+        GameRegistry.addShapedRecipe(sa, "ili", "gdg", "ili", 'i', iron, 'l', Lapis, 'g', Glowstone, 'd', Diamond);
+        GameRegistry.addShapedRecipe(sa,"igi", "ldl", "igi", 'i', iron, 'l', Lapis, 'g',Glowstone, 'd', Diamond);
 
         sa = new ItemStack(ITA.SprintBooster);
         cmp.zeroAllValues();
@@ -231,9 +253,24 @@ public class ITA {
         cmp.Resistance = 2;
         sa.stackSize = 1;
         sa.stackTagCompound = cmp.getTagCompound();
-        ItemStack iron = new ItemStack(Items.iron_ingot);
-        ItemStack rsBlock = new ItemStack(Item.getItemFromBlock(Blocks.redstone_block));
         GameRegistry.addShapedRecipe(sa, "iii", "rrr", "iii", 'i', iron, 'r', rsBlock);
 
+        sa = new ItemStack(ITA.FlyBooster);
+        cmp.zeroAllValues();
+        cmp.Name = "Flight Boost Module";
+        cmp.ColorHex = "#D8D8D8";
+        cmp.Resistance = 2;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        GameRegistry.addShapedRecipe(sa, "ii ", "rri", "ii ", 'i', iron, 'r', rsBlock);
+
+        sa = new ItemStack(ITA.FlyBooster);
+        cmp.zeroAllValues();
+        cmp.Name = "Swim Boost Module";
+        cmp.ColorHex = "#D8D8D8";
+        cmp.Resistance = 2;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        GameRegistry.addShapedRecipe(sa, "ii ", "lli", "ii ", 'i', iron, 'l', Lapis);
     }
 }

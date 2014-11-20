@@ -92,6 +92,7 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     public void onArmorTick(World w, EntityPlayer player, ItemStack is){
+        //TODO Change this to be a player tick
         tickCounter ++;
         ITAArmorProperties ap = new ITAArmorProperties(is);
         for (String trait: ap.Traits.keySet()){

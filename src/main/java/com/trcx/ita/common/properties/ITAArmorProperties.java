@@ -2,6 +2,7 @@ package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.item.ItemBasicArmor;
 import com.trcx.ita.common.ITA;
+import com.trcx.ita.common.traits.TraitNames;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -31,14 +32,6 @@ public class ITAArmorProperties extends BaseProperty {
     private static String NBTFLIGHTTIME = "remainingFlight";
     private static String NBTMAXFLIGHTTIME = "maxFlight";
     private static String NBTFLIGHTRECHARGERATE ="flightRecharge";
-
-    public double getFuelPercetage(){
-        return this.RemainingFuel / this.MaxFuel;
-    }
-
-    public boolean canFly(){
-        return this.Traits.containsKey("basicFlight");
-    }
 
     public void addMaterial(BaseProperty material, double qty) {
         if (this.CraftedMaterials.containsKey(material.Name)) {

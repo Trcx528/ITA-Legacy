@@ -6,6 +6,7 @@ import com.trcx.ita.common.properties.BaseProperty;
 import com.trcx.ita.common.properties.PlayerProperties;
 import com.trcx.ita.common.utility.KeyStates;
 import com.trcx.ita.common.utility.KeySync;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,10 +14,16 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by JPiquette on 11/20/2014.
  */
-public class SprintAccelerationTrait extends BaseTrait {
+public class BoostTrait extends BaseTrait {
 
-    public SprintAccelerationTrait(String Name){
+    public static final int GROUND_ONLY = 1;
+    public static final int AIR_ONLY = 2;
+    public static final int WATER_ONLY = 3;
+    public int Type;
+
+    public BoostTrait(String Name, int Type){
         super (Name);
+        this.Type = Type;
     }
 
     public static final double MAX_TRAVEL_SPEED =2.0D;
@@ -30,7 +37,22 @@ public class SprintAccelerationTrait extends BaseTrait {
         if (KeySync.PlayerKeyStates.containsKey(player.getDisplayName())) {
             KeyState = KeySync.PlayerKeyStates.get(player.getDisplayName());
             PlayerProperties PP = new PlayerProperties(player);
-            if (KeyState.SPRINTACC && player.onGround && PP.consumeFuel(10D * tw)) {
+            boolean canDo = false;
+            switch (this.Type){
+                case GROUND_ONLY:
+                    canDo = player.onGround && !player.isInsideOfMaterial(Material.water);
+                    break;
+                case AIR_ONLY:
+                    canDo = !player.onGround && !player.isInsideOfMaterial(Material.water);
+                    tw /=3; //nerf flight speed boost a little
+                    break;
+                case WATER_ONLY:
+                    canDo = player.isInsideOfMaterial(Material.water);
+            }
+            if (canDo)
+                canDo = (player.motionX > 0 || player.motionZ > 0);
+
+            if (KeyState.SPRINTACC && canDo && PP.consumeFuel(10D * tw)) {
                 double ratio = player.motionZ/player.motionX;
                 double mX = Math.min(Math.abs(player.motionX) * tw * 5, MAX_TRAVEL_SPEED - ((PP.Weight -1) * 0.4));
                 if (player.motionX <= 0){
