@@ -17,12 +17,14 @@ public class PlayerProperties {
     public double MaxFuel = 0D;
     public double Regen = 0D;
     public boolean StepAssist = false;
+    public double Resistance = 0D;
 
     private Map<ITAArmorProperties, ItemStack> armorMap = new HashMap<ITAArmorProperties, ItemStack>();
     private EntityPlayer player;
 
     public PlayerProperties(EntityPlayer player){
         this.player = player;
+        int resCount = 0;
         for (int i = 0; i < 4; i++) {
             ItemStack is = player.getCurrentArmor(i);
             if (is != null) {
@@ -33,6 +35,10 @@ public class PlayerProperties {
                     this.Fuel += props.RemainingFuel;
                     this.Regen += props.FuelRegenRate;
                     this.MaxFuel += props.MaxFuel;
+                    if (props.Resistance != -1000D) {
+                        this.Resistance += props.Resistance;
+                        resCount ++;
+                    }
                     armorMap.put(new ITAArmorProperties(is), is);
                     if (props.Traits.containsKey("stepAssist"))
                         this.StepAssist = true;
@@ -42,9 +48,11 @@ public class PlayerProperties {
         this.Regen /= armorMap.size(); //the regen function will be called by each piece of armor
         this.Weight /= 4;
         this.Weight ++ ;
+        this.Resistance /= resCount;
     }
 
     public boolean consumeFuel(double amount){
+        amount *= this.Resistance;
         for (ITAArmorProperties props: armorMap.keySet()){
             if (amount <= 0)
                 break;
@@ -63,8 +71,9 @@ public class PlayerProperties {
 
     public void regenFuel(boolean slow){
         double regenRemaining = this.Regen;
+        regenRemaining += 1 - this.Resistance;
         if (this.Fuel <= 10 || slow)
-            regenRemaining *= 0.1; // cooldown
+            regenRemaining *= 0.05; // cooldown
         for (ITAArmorProperties props: armorMap.keySet()){
             if (regenRemaining <= 0)
                 break;

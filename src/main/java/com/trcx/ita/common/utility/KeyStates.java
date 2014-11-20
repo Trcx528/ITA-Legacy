@@ -7,4 +7,5 @@ public class KeyStates  {
     public Boolean HOVER=false;
     public Boolean FLY=false;
     public Boolean DESCEND=false;
+    public Boolean SPRINTACC=false;
 }

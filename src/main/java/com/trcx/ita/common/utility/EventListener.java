@@ -53,10 +53,11 @@ public class EventListener {
         EntityPlayer player = event.player;
         PlayerProperties PP = new PlayerProperties(player);
         float speedModifier = Math.min((float) (PP.Weight - 1) / 10, 0.49F);
+        PP.regenFuel(!player.onGround);
         if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
             player.moveFlying(0F, 1F, 0.00F - speedModifier);
         }
-        if (PP.StepAssist) {
+        if (PP.StepAssist && PP.Fuel > 10D) {
             player.stepHeight = 1.000528f;
         } else if (player.stepHeight == 1.000528f) {
             player.stepHeight = 0.5f;

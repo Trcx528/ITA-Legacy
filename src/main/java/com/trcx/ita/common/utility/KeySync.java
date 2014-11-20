@@ -11,6 +11,7 @@ public class KeySync {
     public static final int FLY=0;
     public static final int DESCEND=1;
     public static final int HOVER=2;
+    public static final int SPRINTACC=3;
 
     public static Map<String,KeyStates> PlayerKeyStates = new HashMap<String, KeyStates>();
 
@@ -28,6 +29,9 @@ public class KeySync {
                 break;
             case HOVER:
                 ks.HOVER = val;
+                break;
+            case SPRINTACC:
+                ks.SPRINTACC = val;
                 break;
         }
     }

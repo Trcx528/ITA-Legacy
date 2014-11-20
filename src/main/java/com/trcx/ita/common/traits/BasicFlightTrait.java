@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.text.DecimalFormat;
-import java.util.Random;
 
 /**
  * Created by JPiquette on 11/12/2014.
@@ -74,8 +73,6 @@ public class BasicFlightTrait extends BaseTrait {
                     player.motionY = -0.05 * (playerProps.Weight * playerProps.Weight * playerProps.Weight);
                     player.fallDistance = 0F;
                 }
-            } else {
-                playerProps.regenFuel(!player.onGround);
             }
         } else {
             //get the player in the map so next tick it'll recharge

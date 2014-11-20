@@ -5,10 +5,7 @@ import com.trcx.ita.common.item.ItemBasicArmor;
 import com.trcx.ita.common.recipes.AmorDyeRecipe;
 import com.trcx.ita.common.recipes.ArmorRecipe;
 import com.trcx.ita.common.item.*;
-import com.trcx.ita.common.traits.BaseTrait;
-import com.trcx.ita.common.traits.BasicFlightTrait;
-import com.trcx.ita.common.traits.GenericPotionEffect;
-import com.trcx.ita.common.traits.GenericSpecialProtection;
+import com.trcx.ita.common.traits.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -34,6 +31,7 @@ public class ITA {
     public static Item ThrusterRSEngine;
     public static Item BasicCapacitor;
     public static Item StepAssistModule;
+    public static Item SprintBooster;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -98,6 +96,7 @@ public class ITA {
         RegisterTrait("effectHunger", "Always Hungry", hungerEffect, null);
         RegisterTrait(new BasicFlightTrait("basicFlight"));
         RegisterTrait(new BaseTrait("stepAssist","It's Time To Step Up", null, null));
+        RegisterTrait(new SprintAccelerationTrait("sprintAcceleration"));
     }
 
 	public static void RegisterMaterials(){
@@ -189,6 +188,7 @@ public class ITA {
         GameRegistry.registerItem(ThrusterRSEngine, "ThrusterRSEngine");
         GameRegistry.registerItem(BasicCapacitor, "BasicCapacitor");
         GameRegistry.registerItem(StepAssistModule, "StepAssistModule");
+        GameRegistry.registerItem(SprintBooster, "SprintBooster");
 	}
 	
 	public static void DefineItems(){
@@ -204,6 +204,7 @@ public class ITA {
         ThrusterRSEngine = new ItemThrusterRSEngine().setUnlocalizedName("ThrusterRSEngine").setTextureName("ITA:ThrusterRSEngine");
         BasicCapacitor = new ItemCapacitor().setUnlocalizedName("BasicCapacitor").setTextureName("ITA:Capacitor");
         StepAssistModule = new ItemStepAssist().setUnlocalizedName("StepAssist").setTextureName("ITA:StepAssist");
+        SprintBooster = new ItemSprintBooster().setUnlocalizedName("SprintBooster").setTextureName("ITA:SprintBooster");
 	}
 
     public static void RegisterRecipes() {
@@ -222,5 +223,17 @@ public class ITA {
         ItemStack rs = new ItemStack(Items.redstone);
         ItemStack slime = new ItemStack(Items.slime_ball);
         GameRegistry.addShapedRecipe(sa, "s", "r", "p", 's', slime, 'r', rs, 'p', piston);
+
+        sa = new ItemStack(ITA.SprintBooster);
+        cmp.zeroAllValues();
+        cmp.Name = "Sprint Boost Module";
+        cmp.ColorHex = "#D8D8D8";
+        cmp.Resistance = 2;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        ItemStack iron = new ItemStack(Items.iron_ingot);
+        ItemStack rsBlock = new ItemStack(Item.getItemFromBlock(Blocks.redstone_block));
+        GameRegistry.addShapedRecipe(sa, "iii", "rrr", "iii", 'i', iron, 'r', rsBlock);
+
     }
 }

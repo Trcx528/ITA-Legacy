@@ -30,6 +30,7 @@ public class ITAKeybindings {
     private static Boolean FLY = false;
     private static Boolean HOVER = false;
     private static Boolean DESCEND = false;
+    private static Boolean SPRINTACC = false;
 
     public static KeyBinding KB_HOVER = new KeyBinding("Hover", Keyboard.KEY_M, KB_CATEGORY);
 
@@ -38,6 +39,7 @@ public class ITAKeybindings {
     //TODO make config option for "alternate controls"
     public static KeyBinding KB_ALT_DESCEND = new KeyBinding("Descend", Keyboard.KEY_NONE, KB_CATEGORY);
     public static KeyBinding KB_ALT_FLY = new KeyBinding("Fly", Keyboard.KEY_NONE, KB_CATEGORY);
+    public static KeyBinding KB_SPRINT_ACC = new KeyBinding("Super Sprint", Keyboard.KEY_LCONTROL, KB_CATEGORY);
 
     public ITAKeybindings(){
         MinecraftForge.EVENT_BUS.register(this);
@@ -45,11 +47,13 @@ public class ITAKeybindings {
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_ALT_FLY);
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_ALT_DESCEND);
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_HOVER);
+        ClientRegistry.registerKeyBinding(ITAKeybindings.KB_SPRINT_ACC);
     }
 
     @SubscribeEvent
     public void HandleKeyPress(InputEvent.KeyInputEvent event) {
         boolean hasJetpack = false;
+        boolean hasSprint = false;
         for (int i=0; i<4; i++){
             ItemStack is = Minecraft.getMinecraft().thePlayer.getCurrentArmor(i);
             if (is != null && (is.getItem() == ITA.BasicHelmet || is.getItem() == ITA.BasicChestplate ||
@@ -57,6 +61,8 @@ public class ITAKeybindings {
                 ITAArmorProperties props = new ITAArmorProperties(is);
                 if (props.Traits.containsKey("basicFlight"))
                     hasJetpack = true;
+                if (props.Traits.containsKey("sprintAcceleration"))
+                    hasSprint = true;
             }
         }
         if (hasJetpack) {
@@ -76,6 +82,13 @@ public class ITAKeybindings {
                 KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.HOVER, this.HOVER);
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
                 Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.HOVER, this.HOVER));
+            }
+        }
+        if (hasSprint){
+            if (KB_SPRINT_ACC.getIsKeyPressed() != this.SPRINTACC){;
+                this.SPRINTACC = KB_SPRINT_ACC.getIsKeyPressed();
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.SPRINTACC, this.SPRINTACC);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.SPRINTACC, this.SPRINTACC));
             }
         }
     }
