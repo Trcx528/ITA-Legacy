@@ -18,6 +18,6 @@ public class ItemCapacitor extends CompoundMaterial{
 
     @Override
     public void addProperties(ITAArmorProperties props) {
-        props.MaxFuel += 100D;
+        props.MaxFuel += 400D;
     }
 }

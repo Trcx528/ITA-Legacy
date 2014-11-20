@@ -184,6 +184,7 @@ public class ITA {
         GameRegistry.registerItem(Thruster, "Thruster");
         GameRegistry.registerItem(ThrusterCasing, "ThrusterCasing");
         GameRegistry.registerItem(ThrusterRSEngine, "ThrusterRSEngine");
+        GameRegistry.registerItem(BasicCapacitor, "BasicCapacitor");
 	}
 	
 	public static void DefineItems(){
@@ -201,8 +202,8 @@ public class ITA {
 	}
 
     public static void RegisterRecipes() {
+        //Register These here as new ItemBasicArmor() is called several times
         GameRegistry.addRecipe(new ArmorRecipe());
-        GameRegistry.addRecipe(new AlloyRecipe());
         GameRegistry.addRecipe(new AmorDyeRecipe());
     }
 }
