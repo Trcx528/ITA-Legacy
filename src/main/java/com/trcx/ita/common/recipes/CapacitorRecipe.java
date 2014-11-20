@@ -39,7 +39,7 @@ public class CapacitorRecipe implements IRecipe {
         props.Name = "Basic Capacitor";
         retStack.stackTagCompound = props.getTagCompound();
         if (craft)
-            retStack.stackSize = 2;
+            retStack.stackSize = 1;
         return retStack;
     }
 

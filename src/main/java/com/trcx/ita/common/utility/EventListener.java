@@ -51,11 +51,15 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        float speedModifier = Math.min((float) (new PlayerProperties(player).Weight - 1) / 10, 0.49F);
-        //if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+        PlayerProperties PP = new PlayerProperties(player);
+        float speedModifier = Math.min((float) (PP.Weight - 1) / 10, 0.49F);
         if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
             player.moveFlying(0F, 1F, 0.00F - speedModifier);
         }
-
+        if (PP.StepAssist) {
+            player.stepHeight = 1.000528f;
+        } else if (player.stepHeight == 1.000528f) {
+            player.stepHeight = 0.5f;
+        }
     }
 }

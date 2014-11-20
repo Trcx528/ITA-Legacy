@@ -26,7 +26,7 @@ public class ArmorRecipe implements IRecipe {
         //Map<String, Double> materials = new HashMap<String, Double>();
         List<CompoundMaterial> CompoundMaterials = new ArrayList<CompoundMaterial>();
         List<BaseProperty> BaseProps = new ArrayList<BaseProperty>();
-        List<String> MaterialList = new ArrayList<String>();
+        List<BaseProperty> MaterialList = new ArrayList<BaseProperty>();
 
         double Resistance = 0D;
         int ResistanceCount = 0;
@@ -41,7 +41,7 @@ public class ArmorRecipe implements IRecipe {
                     CompoundMaterial cm = (CompoundMaterial) inv.getStackInSlot(i).getItem();
                     CompoundMaterials.add(cm);
                     BaseProps.add(cmp);
-                    MaterialList.add(cmp.Name);
+                    MaterialList.add(cmp);
                     if (inv.getStackInSlot(i).getItem() instanceof ItemThruster){
                         Resistance += cmp.Resistance;
                         ResistanceCount ++;
@@ -53,7 +53,7 @@ public class ArmorRecipe implements IRecipe {
                         if (oreDictName.startsWith("ingot")) {
                             nullSlots[i] = 1;
                             BaseProps.add(ITA.getMaterialProperties(oreDictName));
-                            MaterialList.add(ITA.getMaterialProperties(oreDictName).Name);
+                            MaterialList.add(ITA.getMaterialProperties(oreDictName));
                             break;
                         }
                     }
@@ -103,10 +103,10 @@ public class ArmorRecipe implements IRecipe {
         if (ResistanceCount != 0)
             ap.Resistance = Resistance/ResistanceCount;
         returnStack.getItem().setMaxDamage(ap.MaxDurability);
-        if (ap.Traits.containsKey("basicFlight"))
-            ap.RemainingFuel = BasicFlightTrait.MAX_FLIGHTTIME;
+        if (ap.MaxFuel > 0)
+            ap.RemainingFuel = ap.MaxFuel;
 
-        for (String material: MaterialList){
+        for (BaseProperty material: MaterialList){
             ap.addMaterial(material, 1D);
         }
 

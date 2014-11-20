@@ -20,7 +20,6 @@ import java.util.Random;
  */
 public class BasicFlightTrait extends BaseTrait {
 
-    public static final int MAX_FLIGHTTIME = 200; // ticks
     public static final double SUGGESTED_MAXVERTICALSPEED = 1.0;
 
     public BasicFlightTrait(String name) {

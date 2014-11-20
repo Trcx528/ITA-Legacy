@@ -40,11 +40,18 @@ public class ITAArmorProperties extends BaseProperty {
         return this.Traits.containsKey("basicFlight");
     }
 
-    public void addMaterial(String materialName, double qty) {
-        if (this.CraftedMaterials.containsKey(materialName)) {
-            this.CraftedMaterials.put(materialName, this.CraftedMaterials.get(materialName) + qty);
+    public void addMaterial(BaseProperty material, double qty) {
+        if (this.CraftedMaterials.containsKey(material.Name)) {
+            if (material.addS()) {
+                this.CraftedMaterials.put(material.Name + "s", this.CraftedMaterials.get(material.Name) + qty);
+                this.CraftedMaterials.remove(material.Name);
+            }  else {
+                this.CraftedMaterials.put(material.Name, this.CraftedMaterials.get(material.Name) + qty);
+            }
+        } else if (this.CraftedMaterials.containsKey(material.Name + "s")) {
+            this.CraftedMaterials.put(material.Name + "s", this.CraftedMaterials.get(material.Name + "s") + qty);
         } else {
-            this.CraftedMaterials.put(materialName, qty);
+            this.CraftedMaterials.put(material.Name, qty);
         }
     }
 

@@ -16,6 +16,7 @@ public class PlayerProperties {
     public double Fuel = 0D;
     public double MaxFuel = 0D;
     public double Regen = 0D;
+    public boolean StepAssist = false;
 
     private Map<ITAArmorProperties, ItemStack> armorMap = new HashMap<ITAArmorProperties, ItemStack>();
     private EntityPlayer player;
@@ -33,6 +34,8 @@ public class PlayerProperties {
                     this.Regen += props.FuelRegenRate;
                     this.MaxFuel += props.MaxFuel;
                     armorMap.put(new ITAArmorProperties(is), is);
+                    if (props.Traits.containsKey("stepAssist"))
+                        this.StepAssist = true;
                 }
             }
         }

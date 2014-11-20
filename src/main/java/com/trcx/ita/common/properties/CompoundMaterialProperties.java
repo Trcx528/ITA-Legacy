@@ -13,6 +13,9 @@ public class CompoundMaterialProperties extends BaseProperty {
 
     public CompoundMaterialProperties () {}
 
+    @Override
+    public Boolean addS() {return true;}
+
     public CompoundMaterialProperties (BaseProperty bp){
         super(bp);
     }

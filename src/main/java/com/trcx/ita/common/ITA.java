@@ -2,7 +2,6 @@ package com.trcx.ita.common;
 
 import com.trcx.ita.common.properties.*;
 import com.trcx.ita.common.item.ItemBasicArmor;
-import com.trcx.ita.common.recipes.AlloyRecipe;
 import com.trcx.ita.common.recipes.AmorDyeRecipe;
 import com.trcx.ita.common.recipes.ArmorRecipe;
 import com.trcx.ita.common.item.*;
@@ -11,8 +10,11 @@ import com.trcx.ita.common.traits.BasicFlightTrait;
 import com.trcx.ita.common.traits.GenericPotionEffect;
 import com.trcx.ita.common.traits.GenericSpecialProtection;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 
@@ -31,7 +33,7 @@ public class ITA {
     public static Item ThrusterCasing;
     public static Item ThrusterRSEngine;
     public static Item BasicCapacitor;
-
+    public static Item StepAssistModule;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -95,6 +97,7 @@ public class ITA {
         RegisterTrait("effectSaturation", "Saturating!", saturationEffect, null);
         RegisterTrait("effectHunger", "Always Hungry", hungerEffect, null);
         RegisterTrait(new BasicFlightTrait("basicFlight"));
+        RegisterTrait(new BaseTrait("stepAssist","It's Time To Step Up", null, null));
     }
 
 	public static void RegisterMaterials(){
@@ -185,6 +188,7 @@ public class ITA {
         GameRegistry.registerItem(ThrusterCasing, "ThrusterCasing");
         GameRegistry.registerItem(ThrusterRSEngine, "ThrusterRSEngine");
         GameRegistry.registerItem(BasicCapacitor, "BasicCapacitor");
+        GameRegistry.registerItem(StepAssistModule, "StepAssistModule");
 	}
 	
 	public static void DefineItems(){
@@ -199,11 +203,24 @@ public class ITA {
         ThrusterCasing = new ItemThrusterCasing().setUnlocalizedName("ThrusterCasing").setTextureName("ITA:ThrusterCasing");
         ThrusterRSEngine = new ItemThrusterRSEngine().setUnlocalizedName("ThrusterRSEngine").setTextureName("ITA:ThrusterRSEngine");
         BasicCapacitor = new ItemCapacitor().setUnlocalizedName("BasicCapacitor").setTextureName("ITA:Capacitor");
+        StepAssistModule = new ItemStepAssist().setUnlocalizedName("StepAssist").setTextureName("ITA:StepAssist");
 	}
 
     public static void RegisterRecipes() {
         //Register These here as new ItemBasicArmor() is called several times
         GameRegistry.addRecipe(new ArmorRecipe());
         GameRegistry.addRecipe(new AmorDyeRecipe());
+
+        ItemStack sa = new ItemStack(ITA.StepAssistModule);
+        CompoundMaterialProperties cmp = new CompoundMaterialProperties();
+        cmp.zeroAllValues();
+        cmp.Name = "Step Assist Module";
+        cmp.ColorHex = "#D8D8D8"; //make it look like iron
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        ItemStack piston = new ItemStack(Item.getItemFromBlock(Blocks.piston));
+        ItemStack rs = new ItemStack(Items.redstone);
+        ItemStack slime = new ItemStack(Items.slime_ball);
+        GameRegistry.addShapedRecipe(sa, "s", "r", "p", 's', slime, 'r', rs, 'p', piston);
     }
 }

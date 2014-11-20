@@ -97,6 +97,10 @@ public class BaseProperty {
         }
     }
 
+    public Boolean addS(){
+        return false;
+    }
+
     public void getToolTip(List<String> dataList){
         DecimalFormat df = new DecimalFormat("#.##");
         if (this.ArmorFactor > 0D)
