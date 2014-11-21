@@ -9,4 +9,5 @@ public class KeyStates  {
     public Boolean DESCEND=false;
     public Boolean SPRINTACC=false;
     public Boolean NIGHTVISION=false;
+    public Boolean ROCKET=false;
 }

@@ -13,6 +13,7 @@ public class KeySync {
     public static final int HOVER=2;
     public static final int SPRINTACC=3;
     public static final int NIGHTVISION = 4;
+    public static final int ROCKET= 5;
 
     public static Map<String,KeyStates> PlayerKeyStates = new HashMap<String, KeyStates>();
 
@@ -36,6 +37,9 @@ public class KeySync {
                 break;
             case NIGHTVISION:
                 ks.NIGHTVISION = val;
+                break;
+            case ROCKET:
+                ks.ROCKET = val;
                 break;
         }
     }

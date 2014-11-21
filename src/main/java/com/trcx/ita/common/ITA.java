@@ -35,6 +35,7 @@ public class ITA {
     public static Item FlyBooster;
     public static Item SwimBooster;
     public static Item NightVision;
+    public static Item RocketThruster;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -103,6 +104,7 @@ public class ITA {
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_FLIGHT_BOOST, BoostTrait.AIR_ONLY));
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_SWIM_BOOST, BoostTrait.WATER_ONLY));
         RegisterTrait(new NightVision(TraitNames.POTION_EFFECT_NIGHTVISION));
+        RegisterTrait(new RocketTrait(TraitNames.ABILITY_BASIC_ROCKET));
     }
 
 	public static void RegisterMaterials(){
@@ -198,6 +200,7 @@ public class ITA {
         GameRegistry.registerItem(FlyBooster, "FlyBooster");
         GameRegistry.registerItem(SwimBooster, "SwimBooster");
         GameRegistry.registerItem(NightVision, "NightVision");
+        GameRegistry.registerItem(RocketThruster, "RocketThruster");
 	}
 	
 	public static void DefineItems(){
@@ -217,6 +220,7 @@ public class ITA {
         FlyBooster = new ItemFlightBooster().setUnlocalizedName("FlightBooster").setTextureName("ITA:FlyBooster");
         SwimBooster = new ItemSwimBooster().setUnlocalizedName("Swim Booster").setTextureName("ITA:SwimBooster");
         NightVision = new ItemNightVision().setUnlocalizedName("Night Vision").setTextureName("ITA:NightVision");
+        RocketThruster = new ItemRocketThruster().setUnlocalizedName("Rocket Thruster").setTextureName("ITA:RocketThruster");
 	}
 
     public static void RegisterRecipes() {
@@ -281,12 +285,21 @@ public class ITA {
         GameRegistry.addShapedRecipe(sa, "ii ", "lli", "ii ", 'i', iron, 'l', Lapis);
 
         sa = new ItemStack(ITA.NightVision);
-        cmp.zeroAllValues();;
+        cmp.zeroAllValues();
         cmp.Name = "Night Vision Module";
         cmp.ColorHex = "#D8D8D8";
         cmp.Resistance = 1;
         sa.stackSize = 1;
         sa.stackTagCompound = cmp.getTagCompound();
         GameRegistry.addShapedRecipe(sa, "iii","gig","l l", 'i', iron, 'g', Glass, 'l', Lime);
+
+        sa = new ItemStack(ITA.RocketThruster);
+        cmp.zeroAllValues();
+        cmp.Name = "Rocket Thruster";
+        cmp.ColorHex = "#8D8D8D";
+        cmp.Resistance = 1;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        GameRegistry.addShapedRecipe(sa, " i ", "iri", "iri", 'i', iron, 'r', rsBlock);
     }
 }

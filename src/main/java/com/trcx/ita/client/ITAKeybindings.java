@@ -33,6 +33,7 @@ public class ITAKeybindings {
     private static Boolean DESCEND = false;
     private static Boolean SPRINTACC = false;
     private static Boolean NIGHTVISION = false;
+    private static Boolean ROCKETING = false;
 
     public static KeyBinding KB_HOVER = new KeyBinding("Hover", Keyboard.KEY_M, KB_CATEGORY);
     public static KeyBinding KB_NIGHTVISION = new KeyBinding("Night Vision", Keyboard.KEY_N, KB_CATEGORY);
@@ -42,6 +43,7 @@ public class ITAKeybindings {
     public static KeyBinding KB_ALT_DESCEND = new KeyBinding("Descend", Keyboard.KEY_NONE, KB_CATEGORY);
     public static KeyBinding KB_ALT_FLY = new KeyBinding("Fly", Keyboard.KEY_NONE, KB_CATEGORY);
     public static KeyBinding KB_SPRINT_ACC = new KeyBinding("Super Sprint", Keyboard.KEY_LCONTROL, KB_CATEGORY);
+    public static KeyBinding KB_ROCKET = new KeyBinding("Rocket", Keyboard.KEY_LMENU, KB_CATEGORY);
 
     public ITAKeybindings(){
         MinecraftForge.EVENT_BUS.register(this);
@@ -50,6 +52,7 @@ public class ITAKeybindings {
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_ALT_DESCEND);
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_HOVER);
         ClientRegistry.registerKeyBinding(ITAKeybindings.KB_SPRINT_ACC);
+        ClientRegistry.registerKeyBinding(ITAKeybindings.KB_ROCKET);
     }
 
     @SubscribeEvent
@@ -57,6 +60,7 @@ public class ITAKeybindings {
         boolean hasJetpack = false;
         boolean hasSprint = false;
         boolean hasNightVision = false;
+        boolean hasRocket = false;
         for (int i=0; i<4; i++){
             ItemStack is = Minecraft.getMinecraft().thePlayer.getCurrentArmor(i);
             if (is != null && (is.getItem() == ITA.BasicHelmet || is.getItem() == ITA.BasicChestplate ||
@@ -68,25 +72,27 @@ public class ITAKeybindings {
                     hasSprint = true;
                 if (props.Traits.containsKey(TraitNames.POTION_EFFECT_NIGHTVISION))
                     hasNightVision = true;
+                if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_ROCKET))
+                    hasRocket = true;
             }
         }
         if (hasJetpack) {
-            if (this.FLY != (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed())) {
-                this.FLY = (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed());
-                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.FLY, this.FLY);
-                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.FLY, this.FLY));
-            } else if (this.DESCEND != (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed())) {
-                this.DESCEND = (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed());
-                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.DESCEND, this.DESCEND);
-                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.DESCEND, this.DESCEND));
+            if (FLY != (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed())) {
+                FLY = (KB_FLY.getIsKeyPressed() || KB_ALT_FLY.getIsKeyPressed());
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.FLY, FLY);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.FLY, FLY));
+            } else if (DESCEND != (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed())) {
+                DESCEND = (KB_DESCEND.getIsKeyPressed() || KB_ALT_DESCEND.getIsKeyPressed());
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.DESCEND, DESCEND);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.DESCEND, DESCEND));
             } else if (KB_HOVER.isPressed()) {
-                this.HOVER = !this.HOVER;
+                HOVER = !HOVER;
                 String msg = "Hover mode is now " + EnumChatFormatting.RED + "[OFF]";
-                if (this.HOVER)
+                if (HOVER)
                     msg = "Hover mode is now " + EnumChatFormatting.ITALIC + EnumChatFormatting.GREEN + "[ON]";
-                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.HOVER, this.HOVER);
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.HOVER, HOVER);
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
-                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.HOVER, this.HOVER));
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.HOVER, HOVER));
             }
         }
         if (hasNightVision){
@@ -101,10 +107,17 @@ public class ITAKeybindings {
             }
         }
         if (hasSprint){
-            if (KB_SPRINT_ACC.getIsKeyPressed() != this.SPRINTACC){;
-                this.SPRINTACC = KB_SPRINT_ACC.getIsKeyPressed();
-                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.SPRINTACC, this.SPRINTACC);
-                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.SPRINTACC, this.SPRINTACC));
+            if (KB_SPRINT_ACC.getIsKeyPressed() != SPRINTACC){
+                SPRINTACC = KB_SPRINT_ACC.getIsKeyPressed();
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.SPRINTACC, SPRINTACC);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.SPRINTACC, SPRINTACC));
+            }
+        }
+        if (hasRocket){
+            if (KB_ROCKET.getIsKeyPressed() != ROCKETING){
+                ROCKETING = KB_ROCKET.getIsKeyPressed();
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.ROCKET, ROCKETING);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.ROCKET, ROCKETING));
             }
         }
     }
