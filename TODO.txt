@@ -1,4 +1,3 @@
--Night Vision
 -Balance Resistance values (move resistance to be from 0-16 rather than 0-5)
 -Cleanup NBT Tag names
 -Add jetpack particle effects
@@ -7,6 +6,10 @@
 -Shock Absorbtion module (anti fall damage)
 -Rocket Thruster (Vertical Speed Boost)
 -Fix enchantment rendering on player
+-Change modules to have no resistance but a power cost
+-auto turret
+-flash light
+
 
 -Add Tier 3 (Powered Armor)
   - Powered thruster

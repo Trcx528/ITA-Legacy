@@ -3,14 +3,13 @@ package com.trcx.ita.common.traits;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.trcx.ita.common.properties.BaseProperty;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 
 import java.util.Random;
 
 /**
- * Created by JPiquette on 11/10/2014.
+ * Created by Trcx on 11/10/2014.
  */
 public class BaseTrait {
 
@@ -29,7 +28,7 @@ public class BaseTrait {
         this.specialProtections = specialProtections;
     }
 
-    public void tick(double traitWeight, EntityPlayer player, int counter, ItemStack is) {
+    public void tick(double traitWeight, EntityPlayer player, int counter) {
         if (potionEffects != null) {
             for (GenericPotionEffect effect : potionEffects) {
                 if ((counter % 20) == 1) {

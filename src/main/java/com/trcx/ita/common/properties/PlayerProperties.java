@@ -1,6 +1,7 @@
 package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.ITA;
+import com.trcx.ita.common.traits.BaseTrait;
 import com.trcx.ita.common.traits.TraitNames;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,10 +22,9 @@ public class PlayerProperties {
     public double Resistance = 0D;
 
     private Map<ITAArmorProperties, ItemStack> armorMap = new HashMap<ITAArmorProperties, ItemStack>();
-    private EntityPlayer player;
+    public Map<BaseTrait, Double> Traits = new HashMap<BaseTrait, Double>();
 
     public PlayerProperties(EntityPlayer player){
-        this.player = player;
         int resCount = 0;
         for (int i = 0; i < 4; i++) {
             ItemStack is = player.getCurrentArmor(i);
@@ -40,6 +40,9 @@ public class PlayerProperties {
                         this.Resistance += props.Resistance;
                         resCount ++;
                     }
+                    for (String trait: props.Traits.keySet()){
+                        addTrait(ITA.getTrait(trait), props.Traits.get(trait));
+                    }
                     armorMap.put(new ITAArmorProperties(is), is);
                     if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_STEPASSIST))
                         this.StepAssist = true;
@@ -50,6 +53,14 @@ public class PlayerProperties {
         this.Weight /= 4;
         this.Weight ++ ;
         this.Resistance /= resCount;
+    }
+
+    private void addTrait(BaseTrait Trait, Double Weight){
+        if (this.Traits.containsKey(Trait)){
+            this.Traits.put(Trait, this.Traits.get(Trait) + Weight);
+        } else {
+            this.Traits.put(Trait, Weight);
+        }
     }
 
     public boolean consumeFuel(double amount){

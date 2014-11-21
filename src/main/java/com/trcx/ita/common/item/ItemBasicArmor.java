@@ -26,7 +26,6 @@ import java.util.List;
 public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
 
     private BasicArmorRenderer model = null;
-    private int tickCounter = 0;
 
     public ItemBasicArmor(ArmorMaterial material, int armorType) {
         super(material, 0, armorType);
@@ -88,19 +87,6 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
     public void onCreated(ItemStack is, World world, EntityPlayer player){
         //super.onCreated(is, world, player);
         //this.setMaxDamage(is.stackTagCompound.getShort("maxDurability"));
-    }
-
-    @Override
-    public void onArmorTick(World w, EntityPlayer player, ItemStack is){
-        //TODO Change this to be a player tick
-        tickCounter ++;
-        ITAArmorProperties ap = new ITAArmorProperties(is);
-        for (String trait: ap.Traits.keySet()){
-            ITA.getTrait(trait).tick(ap.Traits.get(trait),player,tickCounter, is);
-        }
-        if (tickCounter == 1000){ //reset the counter ever once and a while to avoid overflows
-            tickCounter = 0;
-        }
     }
 
     @Override

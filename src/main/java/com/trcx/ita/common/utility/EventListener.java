@@ -4,6 +4,7 @@ import com.trcx.ita.common.properties.BaseMaterialProperty;
 import com.trcx.ita.common.ITA;
 import com.trcx.ita.common.properties.BaseProperty;
 import com.trcx.ita.common.properties.PlayerProperties;
+import com.trcx.ita.common.traits.BaseTrait;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -21,6 +22,8 @@ import java.text.DecimalFormat;
  * Created by JPiquette on 11/10/2014.
  */
 public class EventListener {
+
+    private int TickCounter = 0;
 
     public EventListener() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -49,18 +52,34 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event) {
-        EntityPlayer player = event.player;
-        PlayerProperties PP = new PlayerProperties(player);
-        float speedModifier = Math.min((float) (PP.Weight - 1) / 10, 0.49F);
-        PP.regenFuel(!player.onGround);
-        if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
-            player.moveFlying(0F, 1F, 0.00F - speedModifier);
+    public void serverTick(TickEvent.ServerTickEvent event){
+        if (event.phase == TickEvent.Phase.END) {
+            if (TickCounter>=1000){
+                TickCounter = 0;
+            } else {
+                TickCounter++;
+            }
         }
-        if (PP.StepAssist && PP.Fuel > 10D) {
-            player.stepHeight = 1.000528f;
-        } else if (player.stepHeight == 1.000528f) {
-            player.stepHeight = 0.5f;
+    }
+
+    @SubscribeEvent
+    public void playerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            EntityPlayer player = event.player;
+            PlayerProperties PP = new PlayerProperties(player);
+            for (BaseTrait trait : PP.Traits.keySet()) {
+                trait.tick(PP.Traits.get(trait), player, TickCounter);
+            }
+            float speedModifier = Math.min((float) (PP.Weight - 1) / 10, 0.49F);
+            PP.regenFuel(!player.onGround);
+            if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+                player.moveFlying(0F, 1F, 0.00F - speedModifier);
+            }
+            if (PP.StepAssist && PP.Fuel > 10D) {
+                player.stepHeight = 1.000528f;
+            } else if (player.stepHeight == 1.000528f) {
+                player.stepHeight = 0.5f;
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ import com.trcx.ita.common.utility.KeyStates;
 import com.trcx.ita.common.utility.KeySync;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.text.DecimalFormat;
@@ -38,7 +37,7 @@ public class BasicFlightTrait extends BaseTrait {
     }
 
     @Override
-    public void tick(double tw, EntityPlayer player, int counter, ItemStack is) {
+    public void tick(double tw, EntityPlayer player, int counter) {
         KeyStates KeyState;
         if (KeySync.PlayerKeyStates.containsKey(player.getDisplayName())) {
             KeyState = KeySync.PlayerKeyStates.get(player.getDisplayName());

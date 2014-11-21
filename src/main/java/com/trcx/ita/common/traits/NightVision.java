@@ -5,7 +5,6 @@ import com.trcx.ita.common.properties.PlayerProperties;
 import com.trcx.ita.common.utility.KeyStates;
 import com.trcx.ita.common.utility.KeySync;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -26,13 +25,13 @@ public class NightVision extends BaseTrait {
     }
 
     @Override
-    public void tick(double traitWeight, EntityPlayer player, int counter, ItemStack is) {
+    public void tick(double traitWeight, EntityPlayer player, int counter) {
         KeyStates KeyState;
         if (KeySync.PlayerKeyStates.containsKey(player.getDisplayName())) {
             KeyState = KeySync.PlayerKeyStates.get(player.getDisplayName());
             PlayerProperties PP = new PlayerProperties(player);
             if (KeyState.NIGHTVISION &&  PP.Fuel > 12D && PP.consumeFuel(2)){ // wait for the recharge cool down to wear off
-                player.addPotionEffect(this.potionEffect);
+                player.addPotionEffect(potionEffect);
             }
         }
 
