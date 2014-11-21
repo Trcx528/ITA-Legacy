@@ -50,7 +50,7 @@ public class BoostTrait extends BaseTrait {
                     canDo = player.isInsideOfMaterial(Material.water);
             }
             if (canDo)
-                canDo = (player.motionX > 0 || player.motionZ > 0);
+                canDo = (player.motionX != 0 || player.motionZ != 0);
 
             if (KeyState.SPRINTACC && canDo && PP.consumeFuel(10D * tw)) {
                 double ratio = player.motionZ/player.motionX;

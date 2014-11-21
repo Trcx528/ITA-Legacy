@@ -8,4 +8,5 @@ public class KeyStates  {
     public Boolean FLY=false;
     public Boolean DESCEND=false;
     public Boolean SPRINTACC=false;
+    public Boolean NIGHTVISION=false;
 }

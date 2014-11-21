@@ -32,9 +32,10 @@ public class ITAKeybindings {
     private static Boolean HOVER = false;
     private static Boolean DESCEND = false;
     private static Boolean SPRINTACC = false;
+    private static Boolean NIGHTVISION = false;
 
     public static KeyBinding KB_HOVER = new KeyBinding("Hover", Keyboard.KEY_M, KB_CATEGORY);
-
+    public static KeyBinding KB_NIGHTVISION = new KeyBinding("Night Vision", Keyboard.KEY_N, KB_CATEGORY);
     public static KeyBinding KB_FLY = FMLClientHandler.instance().getClient().gameSettings.keyBindJump;
     public static KeyBinding KB_DESCEND = FMLClientHandler.instance().getClient().gameSettings.keyBindSneak;
     //TODO make config option for "alternate controls"
@@ -55,6 +56,7 @@ public class ITAKeybindings {
     public void HandleKeyPress(InputEvent.KeyInputEvent event) {
         boolean hasJetpack = false;
         boolean hasSprint = false;
+        boolean hasNightVision = false;
         for (int i=0; i<4; i++){
             ItemStack is = Minecraft.getMinecraft().thePlayer.getCurrentArmor(i);
             if (is != null && (is.getItem() == ITA.BasicHelmet || is.getItem() == ITA.BasicChestplate ||
@@ -64,6 +66,8 @@ public class ITAKeybindings {
                     hasJetpack = true;
                 if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_STEPASSIST))
                     hasSprint = true;
+                if (props.Traits.containsKey(TraitNames.POTION_EFFECT_NIGHTVISION))
+                    hasNightVision = true;
             }
         }
         if (hasJetpack) {
@@ -83,6 +87,17 @@ public class ITAKeybindings {
                 KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.HOVER, this.HOVER);
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
                 Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.HOVER, this.HOVER));
+            }
+        }
+        if (hasNightVision){
+            if (KB_NIGHTVISION.isPressed()){
+                NIGHTVISION = !NIGHTVISION;
+                String msg = "Toggled Night Vision " + EnumChatFormatting.RED + "[OFF]";
+                if (NIGHTVISION)
+                    msg = "Toggled Night Vision " + EnumChatFormatting.GREEN + "[ON]";
+                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
+                KeySync.setKey(Minecraft.getMinecraft().thePlayer.getDisplayName(), KeySync.NIGHTVISION, NIGHTVISION);
+                Main.Network.sendToServer(new PacketKey.KeyMessage(KeySync.NIGHTVISION, NIGHTVISION));
             }
         }
         if (hasSprint){

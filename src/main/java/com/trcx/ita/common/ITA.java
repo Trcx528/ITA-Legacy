@@ -34,6 +34,7 @@ public class ITA {
     public static Item SprintBooster;
     public static Item FlyBooster;
     public static Item SwimBooster;
+    public static Item NightVision;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -101,6 +102,7 @@ public class ITA {
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_SPRINT_BOOST, BoostTrait.GROUND_ONLY));
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_FLIGHT_BOOST, BoostTrait.AIR_ONLY));
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_SWIM_BOOST, BoostTrait.WATER_ONLY));
+        RegisterTrait(new NightVision(TraitNames.POTION_EFFECT_NIGHTVISION));
     }
 
 	public static void RegisterMaterials(){
@@ -195,6 +197,7 @@ public class ITA {
         GameRegistry.registerItem(SprintBooster, "SprintBooster");
         GameRegistry.registerItem(FlyBooster, "FlyBooster");
         GameRegistry.registerItem(SwimBooster, "SwimBooster");
+        GameRegistry.registerItem(NightVision, "NightVision");
 	}
 	
 	public static void DefineItems(){
@@ -213,6 +216,7 @@ public class ITA {
         SprintBooster = new ItemSprintBooster().setUnlocalizedName("SprintBooster").setTextureName("ITA:SprintBooster");
         FlyBooster = new ItemFlightBooster().setUnlocalizedName("FlightBooster").setTextureName("ITA:FlyBooster");
         SwimBooster = new ItemSwimBooster().setUnlocalizedName("Swim Booster").setTextureName("ITA:SwimBooster");
+        NightVision = new ItemNightVision().setUnlocalizedName("Night Vision").setTextureName("ITA:NightVision");
 	}
 
     public static void RegisterRecipes() {
@@ -228,6 +232,11 @@ public class ITA {
         ItemStack slime = new ItemStack(Items.slime_ball);
         ItemStack Glowstone = new ItemStack(Items.glowstone_dust);
         ItemStack Diamond = new ItemStack(Items.diamond);
+        ItemStack Lapis = new ItemStack(Items.dye);
+        Lapis.setItemDamage(4);
+        ItemStack Lime = new ItemStack(Items.dye);
+        Lime.setItemDamage(10);
+        ItemStack Glass = new ItemStack(Item.getItemFromBlock(Blocks.glass));
 
         ItemStack sa = new ItemStack(ITA.StepAssistModule);
         CompoundMaterialProperties cmp = new CompoundMaterialProperties();
@@ -240,8 +249,6 @@ public class ITA {
 
 
         sa = new ItemStack(ITA.AlloyBinder);
-        ItemStack Lapis = new ItemStack(Items.dye);
-        Lapis.setItemDamage(4);
         sa.stackSize = 5;
         GameRegistry.addShapedRecipe(sa, "ili", "gdg", "ili", 'i', iron, 'l', Lapis, 'g', Glowstone, 'd', Diamond);
         GameRegistry.addShapedRecipe(sa,"igi", "ldl", "igi", 'i', iron, 'l', Lapis, 'g',Glowstone, 'd', Diamond);
@@ -272,5 +279,14 @@ public class ITA {
         sa.stackSize = 1;
         sa.stackTagCompound = cmp.getTagCompound();
         GameRegistry.addShapedRecipe(sa, "ii ", "lli", "ii ", 'i', iron, 'l', Lapis);
+
+        sa = new ItemStack(ITA.NightVision);
+        cmp.zeroAllValues();;
+        cmp.Name = "Night Vision Module";
+        cmp.ColorHex = "#D8D8D8";
+        cmp.Resistance = 1;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        GameRegistry.addShapedRecipe(sa, "iii","gig","l l", 'i', iron, 'g', Glass, 'l', Lime);
     }
 }
