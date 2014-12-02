@@ -49,7 +49,6 @@ public class PlayerProperties {
                 }
             }
         }
-        this.Regen /= armorMap.size(); //the regen function will be called by each piece of armor
         this.Weight /= 4;
         this.Weight ++ ;
         this.Resistance /= resCount;
@@ -65,10 +64,13 @@ public class PlayerProperties {
 
     public boolean consumeFuel(double amount){
         amount *= this.Resistance;
+        System.out.println("Consuming: " + amount);
         for (ITAArmorProperties props: armorMap.keySet()){
             if (amount <= 0)
                 break;
-            if (props.RemainingFuel < amount){
+            if (Double.isNaN(props.RemainingFuel)) {
+                props.RemainingFuel = 0;
+            } else if (props.RemainingFuel < amount){
                 amount -= props.RemainingFuel;
                 props.RemainingFuel = 0;
             } else {
@@ -86,6 +88,7 @@ public class PlayerProperties {
         regenRemaining += 1 - this.Resistance;
         if (this.Fuel <= 10 || slow)
             regenRemaining *= 0.05; // cooldown
+        System.out.println(regenRemaining);
         for (ITAArmorProperties props: armorMap.keySet()){
             if (regenRemaining <= 0)
                 break;

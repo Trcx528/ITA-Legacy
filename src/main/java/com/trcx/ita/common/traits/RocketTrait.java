@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
  */
 public class RocketTrait extends BaseTrait {
 
-    public static final double MAX_ROCKETSPEED = 2D;
+    public static final double MAX_ROCKETSPEED = 1D;
 
     public RocketTrait(String Name){
         super(Name);
@@ -21,9 +21,11 @@ public class RocketTrait extends BaseTrait {
     public void tick(double traitWeight, EntityPlayer player, int counter) {
         PlayerProperties PP = new PlayerProperties(player);
         KeyStates ks = KeySync.PlayerKeyStates.get(player.getDisplayName());
-        if (ks != null && ks.ROCKET && player.motionY <= MAX_ROCKETSPEED && PP.consumeFuel(10D * traitWeight)){
-            player.motionY += 0.8 - (PP.Weight * 0.1);
+        if (ks != null && ks.ROCKET && player.motionY <= MAX_ROCKETSPEED * traitWeight && PP.consumeFuel(10D * traitWeight)){
+            player.motionY += (0.8 - (PP.Weight * 0.1)) * traitWeight;
             player.fallDistance = 0F;
+            player.motionZ *= 0.6;
+            player.motionX *= 0.6;
         }
     }
 
