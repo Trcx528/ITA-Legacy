@@ -53,7 +53,6 @@ public class BoostTrait extends BaseTrait {
 
             if (KeyState.SPRINTACC && canDo && PP.consumeFuel(10D * tw)) {
                 double multiplier = 1 + (PP.Weight * 1);
-                System.out.println(multiplier);
                 if (Math.abs(multiplier * player.motionX) <= MAX_TRAVEL_SPEED && Math.abs(multiplier * player.motionZ) <=MAX_TRAVEL_SPEED) {
                     player.motionX *= multiplier;
                     player.motionZ *= multiplier;

@@ -3,7 +3,6 @@
 -Add jetpack particle effects
 -(T2) XP Power Consumer
 -Magnet
--Shock Absorbtion module (anti fall damage)
 -Fix enchantment rendering on player
 -Change modules to have no resistance but a power cost
 -auto turret

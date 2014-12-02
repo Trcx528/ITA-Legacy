@@ -18,4 +18,5 @@ public class TraitNames {
     public static final String ABILITY_SWIM_BOOST = "swimAcceleration";
     public static final String POTION_EFFECT_NIGHTVISION = "effectNightvision";
     public static final String ABILITY_BASIC_ROCKET = "rocket";
+    public static final String ABILITY_SHOCK_ABSORB = "shockAbsorb";
 }

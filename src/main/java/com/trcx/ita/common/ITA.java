@@ -36,6 +36,7 @@ public class ITA {
     public static Item SwimBooster;
     public static Item NightVision;
     public static Item RocketThruster;
+    public static Item ShockAbsorber;
 
     private static Map<String, BaseMaterialProperty> ArmorMaterialRegistry = new HashMap<String, BaseMaterialProperty>();
     private static Map<String, BaseTrait> ArmorTraitRegistry = new HashMap<String, BaseTrait>();
@@ -52,6 +53,7 @@ public class ITA {
         if (ArmorTraitRegistry.containsKey(traitName)){
             return ArmorTraitRegistry.get(traitName);
         } else {
+            System.out.println("WARNING: Attempting to get none existant trait " + traitName);
             return new BaseTrait(null,null,null,null);
         }
     }
@@ -105,6 +107,7 @@ public class ITA {
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_SWIM_BOOST, BoostTrait.WATER_ONLY));
         RegisterTrait(new NightVision(TraitNames.POTION_EFFECT_NIGHTVISION));
         RegisterTrait(new RocketTrait(TraitNames.ABILITY_BASIC_ROCKET));
+        RegisterTrait(new ShockAbsorb(TraitNames.ABILITY_SHOCK_ABSORB));
     }
 
 	public static void RegisterMaterials(){
@@ -164,6 +167,7 @@ public class ITA {
         ArmorMaterialRegistry.get("ingotVoid").addTrait(TraitNames.DAMAGE_MAGIC,50);
         ArmorMaterialRegistry.get("ingotVoid").addTrait(TraitNames.DAMAGE_VOID,1000);
 
+        ArmorMaterialRegistry.get("ingotArdite").addTrait(TraitNames.DAMAGE_FALL, 50);
         ArmorMaterialRegistry.get("ingotLumium").addTrait(TraitNames.DAMAGE_FALL, 50);
         ArmorMaterialRegistry.get("ingotMithril").addTrait(TraitNames.DAMAGE_MAGIC, 30);
         ArmorMaterialRegistry.get("ingotThaumium").addTrait(TraitNames.DAMAGE_MAGIC, 25);
@@ -201,6 +205,7 @@ public class ITA {
         GameRegistry.registerItem(SwimBooster, "SwimBooster");
         GameRegistry.registerItem(NightVision, "NightVision");
         GameRegistry.registerItem(RocketThruster, "RocketThruster");
+        GameRegistry.registerItem(ShockAbsorber, "ShockAbsorber");
 	}
 	
 	public static void DefineItems(){
@@ -221,6 +226,7 @@ public class ITA {
         SwimBooster = new ItemSwimBooster().setUnlocalizedName("Swim Booster").setTextureName("ITA:SwimBooster");
         NightVision = new ItemNightVision().setUnlocalizedName("Night Vision").setTextureName("ITA:NightVision");
         RocketThruster = new ItemRocketThruster().setUnlocalizedName("Rocket Thruster").setTextureName("ITA:RocketThruster");
+        ShockAbsorber = new ItemShockAbsorber().setUnlocalizedName("Shock Absorber").setTextureName("ITA:ShockAbsorber");
 	}
 
     public static void RegisterRecipes() {
@@ -237,6 +243,8 @@ public class ITA {
         ItemStack Glowstone = new ItemStack(Items.glowstone_dust);
         ItemStack Diamond = new ItemStack(Items.diamond);
         ItemStack Lapis = new ItemStack(Items.dye);
+        ItemStack Wool = new ItemStack(Item.getItemFromBlock(Blocks.wool));
+        ItemStack String = new ItemStack(Items.string);
         Lapis.setItemDamage(4);
         ItemStack Lime = new ItemStack(Items.dye);
         Lime.setItemDamage(10);
@@ -301,5 +309,15 @@ public class ITA {
         sa.stackSize = 1;
         sa.stackTagCompound = cmp.getTagCompound();
         GameRegistry.addShapedRecipe(sa, " i ", "iri", "iri", 'i', iron, 'r', rsBlock);
+
+        sa = new ItemStack(ITA.ShockAbsorber);
+        cmp.zeroAllValues();
+        cmp.Name = "Shock Absorber";
+        cmp.ColorHex = "#8D8D8D";
+        cmp.Resistance = 1;
+        cmp.MaxDurability = 100;
+        sa.stackSize = 1;
+        sa.stackTagCompound = cmp.getTagCompound();
+        GameRegistry.addShapedRecipe(sa, "s s","www", 's', String, 'w', Wool);
     }
 }

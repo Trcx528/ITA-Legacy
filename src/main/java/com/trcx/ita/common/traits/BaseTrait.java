@@ -2,6 +2,7 @@ package com.trcx.ita.common.traits;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.trcx.ita.common.properties.BaseProperty;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -41,7 +42,7 @@ public class BaseTrait {
         }
     }
 
-    public double getDamageRatio(DamageSource source, double damage, double traitWeight){
+    public double getDamageRatio(EntityLivingBase player, DamageSource source, double damage, double traitWeight){
         double absorbRatio = 0.0;
         if (specialProtections != null) {
             for(GenericSpecialProtection sp: specialProtections){

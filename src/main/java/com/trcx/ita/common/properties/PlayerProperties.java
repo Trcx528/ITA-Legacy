@@ -52,6 +52,10 @@ public class PlayerProperties {
         this.Weight /= 4;
         this.Weight ++ ;
         this.Resistance /= resCount;
+        if (Double.isNaN(this.Fuel))
+            this.Fuel = 0;
+        if (Double.isNaN(this.Resistance))
+            this.Resistance = 1D;
     }
 
     private void addTrait(BaseTrait Trait, Double Weight){
@@ -64,7 +68,8 @@ public class PlayerProperties {
 
     public boolean consumeFuel(double amount){
         amount *= this.Resistance;
-        System.out.println("Consuming: " + amount);
+        if (amount > this.Fuel)
+            return false;
         for (ITAArmorProperties props: armorMap.keySet()){
             if (amount <= 0)
                 break;
@@ -77,34 +82,36 @@ public class PlayerProperties {
                 props.RemainingFuel -= amount;
                 amount = 0;
             }
+            if (Double.isNaN(props.RemainingFuel))
+                props.RemainingFuel = 0;
             armorMap.get(props).stackTagCompound = props.getTagCompound();
         }
         return amount <= 0;
     }
 
 
-    public void regenFuel(boolean slow){
-        double regenRemaining = this.Regen;
-        regenRemaining += 1 - this.Resistance;
-        if (this.Fuel <= 10 || slow)
-            regenRemaining *= 0.05; // cooldown
-        System.out.println(regenRemaining);
-        for (ITAArmorProperties props: armorMap.keySet()){
-            if (regenRemaining <= 0)
-                break;
-            if(props.RemainingFuel < props.MaxFuel){
-                if (props.RemainingFuel + regenRemaining <= props.MaxFuel){
-                    props.RemainingFuel += regenRemaining;
-                    regenRemaining = 0;
-                } else {
-                    double consumeAmt = props.MaxFuel - props.RemainingFuel;
-                    regenRemaining -= consumeAmt;
-                    props.RemainingFuel = props.MaxFuel;
+    public void regenFuel(boolean slow) {
+        if (this.Regen > 0 && ! Double.isNaN(this.Resistance)) {
+            double regenRemaining = this.Regen;
+            regenRemaining += 1 - this.Resistance;
+            if (this.Fuel <= 10 || slow)
+                regenRemaining *= 0.05; // cooldown
+            for (ITAArmorProperties props : armorMap.keySet()) {
+                if (regenRemaining <= 0)
+                    break;
+                if (props.RemainingFuel < props.MaxFuel) {
+                    if (props.RemainingFuel + regenRemaining <= props.MaxFuel) {
+                        props.RemainingFuel += regenRemaining;
+                        regenRemaining = 0;
+                    } else {
+                        double consumeAmt = props.MaxFuel - props.RemainingFuel;
+                        regenRemaining -= consumeAmt;
+                        props.RemainingFuel = props.MaxFuel;
+                    }
+                    armorMap.get(props).stackTagCompound = props.getTagCompound();
                 }
-                armorMap.get(props).stackTagCompound = props.getTagCompound();
             }
         }
-
     }
 
 }

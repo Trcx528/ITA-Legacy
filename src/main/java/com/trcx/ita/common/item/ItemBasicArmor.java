@@ -111,7 +111,7 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
         }
         for (String traitName: bap.Traits.keySet()){
             BaseTrait trait = ITA.getTrait(traitName);
-            ap.AbsorbRatio += trait.getDamageRatio(source, damage, bap.Traits.get(traitName));
+            ap.AbsorbRatio += trait.getDamageRatio(player, source, damage, bap.Traits.get(traitName));
         }
         //System.out.println("Props: Max: " + ap.AbsorbMax + " Ratio: " + ap.AbsorbRatio  + "(" + damage +")" + " Unblockable: " + source.isUnblockable());
         return ap;

@@ -21,7 +21,7 @@ public class RocketTrait extends BaseTrait {
     public void tick(double traitWeight, EntityPlayer player, int counter) {
         PlayerProperties PP = new PlayerProperties(player);
         KeyStates ks = KeySync.PlayerKeyStates.get(player.getDisplayName());
-        if (ks != null && ks.ROCKET && player.motionY <= MAX_ROCKETSPEED * traitWeight && PP.consumeFuel(10D * traitWeight)){
+        if (ks != null && ks.ROCKET && PP.consumeFuel(10D * traitWeight) && player.motionY <= MAX_ROCKETSPEED * traitWeight){
             player.motionY += (0.8 - (PP.Weight * 0.1)) * traitWeight;
             player.fallDistance = 0F;
             player.motionZ *= 0.6;
