@@ -18,7 +18,6 @@ public class BoostTrait extends BaseTrait {
 
     public static final int GROUND_ONLY = 1;
     public static final int AIR_ONLY = 2;
-    public static final int WATER_ONLY = 3;
     public int Type;
 
     public BoostTrait(String Name, int Type){
@@ -38,14 +37,12 @@ public class BoostTrait extends BaseTrait {
             boolean canDo = false;
             switch (this.Type){
                 case GROUND_ONLY:
-                    canDo = player.onGround && !player.isInWater();
+                    canDo = player.onGround;
+                    tw *= 2;
                     break;
                 case AIR_ONLY:
-                    canDo = !player.onGround && !player.isInWater();
+                    canDo = !player.onGround;
                     tw /= 2;
-                    break;
-                case WATER_ONLY:
-                    canDo = player.isInWater();
                     break;
             }
             if (canDo)

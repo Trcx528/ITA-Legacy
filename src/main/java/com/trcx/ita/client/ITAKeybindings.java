@@ -68,7 +68,7 @@ public class ITAKeybindings {
                 ITAArmorProperties props = new ITAArmorProperties(is);
                 if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_FLIGHT))
                     hasJetpack = true;
-                if (props.Traits.containsKey(TraitNames.ABILITY_BASIC_STEPASSIST))
+                if (props.Traits.containsKey(TraitNames.ABILITY_SPRINT_BOOST) || props.Traits.containsKey(TraitNames.ABILITY_FLIGHT_BOOST) || props.Traits.containsKey(TraitNames.ABILITY_SWIM_BOOST) )
                     hasSprint = true;
                 if (props.Traits.containsKey(TraitNames.POTION_EFFECT_NIGHTVISION))
                     hasNightVision = true;

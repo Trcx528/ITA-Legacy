@@ -33,7 +33,6 @@ public class ITA {
     public static Item StepAssistModule;
     public static Item SprintBooster;
     public static Item FlyBooster;
-    public static Item SwimBooster;
     public static Item NightVision;
     public static Item RocketThruster;
     public static Item ShockAbsorber;
@@ -104,7 +103,6 @@ public class ITA {
         RegisterTrait(new BaseTrait(TraitNames.ABILITY_BASIC_STEPASSIST));
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_SPRINT_BOOST, BoostTrait.GROUND_ONLY));
         RegisterTrait(new BoostTrait(TraitNames.ABILITY_FLIGHT_BOOST, BoostTrait.AIR_ONLY));
-        RegisterTrait(new BoostTrait(TraitNames.ABILITY_SWIM_BOOST, BoostTrait.WATER_ONLY));
         RegisterTrait(new NightVision(TraitNames.POTION_EFFECT_NIGHTVISION));
         RegisterTrait(new RocketTrait(TraitNames.ABILITY_BASIC_ROCKET));
         RegisterTrait(new ShockAbsorb(TraitNames.ABILITY_SHOCK_ABSORB));
@@ -202,7 +200,6 @@ public class ITA {
         GameRegistry.registerItem(StepAssistModule, "StepAssistModule");
         GameRegistry.registerItem(SprintBooster, "SprintBooster");
         GameRegistry.registerItem(FlyBooster, "FlyBooster");
-        GameRegistry.registerItem(SwimBooster, "SwimBooster");
         GameRegistry.registerItem(NightVision, "NightVision");
         GameRegistry.registerItem(RocketThruster, "RocketThruster");
         GameRegistry.registerItem(ShockAbsorber, "ShockAbsorber");
@@ -223,7 +220,6 @@ public class ITA {
         StepAssistModule = new ItemStepAssist().setUnlocalizedName("StepAssist").setTextureName("ITA:StepAssist");
         SprintBooster = new ItemSprintBooster().setUnlocalizedName("SprintBooster").setTextureName("ITA:SprintBooster");
         FlyBooster = new ItemFlightBooster().setUnlocalizedName("FlightBooster").setTextureName("ITA:FlyBooster");
-        SwimBooster = new ItemSwimBooster().setUnlocalizedName("Swim Booster").setTextureName("ITA:SwimBooster");
         NightVision = new ItemNightVision().setUnlocalizedName("Night Vision").setTextureName("ITA:NightVision");
         RocketThruster = new ItemRocketThruster().setUnlocalizedName("Rocket Thruster").setTextureName("ITA:RocketThruster");
         ShockAbsorber = new ItemShockAbsorber().setUnlocalizedName("Shock Absorber").setTextureName("ITA:ShockAbsorber");
