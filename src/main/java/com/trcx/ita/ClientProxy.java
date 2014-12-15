@@ -6,7 +6,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends CommonProxy {
 
-	@Override
+    @Override
     public void registerRenderers() {
         new JetPackOverlay();
     }
