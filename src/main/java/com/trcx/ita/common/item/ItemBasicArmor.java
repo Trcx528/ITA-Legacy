@@ -101,9 +101,9 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
         return 1;
     }
 
-	@Override
-	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
-		ArmorProperties ap= new ArmorProperties(0, 0, armor.getMaxDamage() +1  - armor.getItemDamage());
+    @Override
+    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+        ArmorProperties ap= new ArmorProperties(0, 0, armor.getMaxDamage() +1  - armor.getItemDamage());
         ITAArmorProperties bap = new ITAArmorProperties(armor);
         if (!source.isUnblockable()) {
             ap.AbsorbRatio = bap.ArmorFactor;
@@ -115,7 +115,7 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
         }
         //System.out.println("Props: Max: " + ap.AbsorbMax + " Ratio: " + ap.AbsorbRatio  + "(" + damage +")" + " Unblockable: " + source.isUnblockable());
         return ap;
-	}
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -137,10 +137,10 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
         return false;
     }
 
-	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return new ITAArmorProperties(armor).ShieldDisplayValue;
-	}
+    @Override
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+        return new ITAArmorProperties(armor).ShieldDisplayValue;
+    }
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -164,8 +164,8 @@ public class ItemBasicArmor extends ItemArmor implements ISpecialArmor {
     @Override
     public  int getMaxDamage(){ return 1;}
 
-	@Override
-	public void damageArmor(EntityLivingBase entity, ItemStack stack,DamageSource source, int damage, int slot) {
+    @Override
+    public void damageArmor(EntityLivingBase entity, ItemStack stack,DamageSource source, int damage, int slot) {
         stack.damageItem(damage, entity);
-	}
+    }
 }

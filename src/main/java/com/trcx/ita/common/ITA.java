@@ -19,11 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ITA {
-	
-	public static Item BasicHelmet;
-	public static Item BasicChestplate;
-	public static Item BasicLeggings;
-	public static Item BasicBoots;
+    
+    public static Item BasicHelmet;
+    public static Item BasicChestplate;
+    public static Item BasicLeggings;
+    public static Item BasicBoots;
     public static Item AlloyBinder;
     public static Item Alloy;
     public static Item Thruster;
@@ -56,8 +56,8 @@ public class ITA {
             return new BaseTrait(null,null,null,null);
         }
     }
-	
-	private static void RegisterArmorMaterial(double protectionFactor, int enchantability, double weight, int durability, Double resistance, String color, String name){
+    
+    private static void RegisterArmorMaterial(double protectionFactor, int enchantability, double weight, int durability, Double resistance, String color, String name){
         ArmorMaterialRegistry.put(name, new BaseMaterialProperty(name, protectionFactor, (short) enchantability, weight, (short) durability, color ,resistance));
     }
 
@@ -108,7 +108,7 @@ public class ITA {
         RegisterTrait(new ShockAbsorb(TraitNames.ABILITY_SHOCK_ABSORB));
     }
 
-	public static void RegisterMaterials(){
+    public static void RegisterMaterials(){
         //armor factor values
         //4.166666 is 100% protection
         //3.33333 is 80% protection (diamond level)
@@ -185,12 +185,12 @@ public class ITA {
 
 
     }
-	
-	public static void RegisterItems(){
-		GameRegistry.registerItem(BasicHelmet, "BasicHelmet");
-		GameRegistry.registerItem(BasicChestplate, "BasicChestplate");
-		GameRegistry.registerItem(BasicLeggings, "BasicLeggings");
-		GameRegistry.registerItem(BasicBoots, "BasicBoots");
+    
+    public static void RegisterItems(){
+        GameRegistry.registerItem(BasicHelmet, "BasicHelmet");
+        GameRegistry.registerItem(BasicChestplate, "BasicChestplate");
+        GameRegistry.registerItem(BasicLeggings, "BasicLeggings");
+        GameRegistry.registerItem(BasicBoots, "BasicBoots");
         GameRegistry.registerItem(AlloyBinder, "AlloyBinder");
         GameRegistry.registerItem(Alloy, "Alloy");
         GameRegistry.registerItem(Thruster, "Thruster");
@@ -203,14 +203,14 @@ public class ITA {
         GameRegistry.registerItem(NightVision, "NightVision");
         GameRegistry.registerItem(RocketThruster, "RocketThruster");
         GameRegistry.registerItem(ShockAbsorber, "ShockAbsorber");
-	}
-	
-	public static void DefineItems(){
+    }
+    
+    public static void DefineItems(){
         //doesn't matter what properties we use, the return functions are overridden
-		BasicHelmet = new ItemBasicArmor(ArmorMaterial.IRON, 0).setUnlocalizedName("BasicHelmet").setTextureName("ITA:BasicHelmet");
-		BasicChestplate = new ItemBasicArmor(ArmorMaterial.IRON, 1).setUnlocalizedName("BasicChestplate").setTextureName("ITA:BasicChestplate");
-		BasicLeggings = new ItemBasicArmor(ArmorMaterial.IRON, 2).setUnlocalizedName("BasicLeggings").setTextureName("ITA:BasicLeggings");
-		BasicBoots= new ItemBasicArmor(ArmorMaterial.IRON, 3).setUnlocalizedName("BasicBoots").setTextureName("ITA:BasicBoots");
+        BasicHelmet = new ItemBasicArmor(ArmorMaterial.IRON, 0).setUnlocalizedName("BasicHelmet").setTextureName("ITA:BasicHelmet");
+        BasicChestplate = new ItemBasicArmor(ArmorMaterial.IRON, 1).setUnlocalizedName("BasicChestplate").setTextureName("ITA:BasicChestplate");
+        BasicLeggings = new ItemBasicArmor(ArmorMaterial.IRON, 2).setUnlocalizedName("BasicLeggings").setTextureName("ITA:BasicLeggings");
+        BasicBoots= new ItemBasicArmor(ArmorMaterial.IRON, 3).setUnlocalizedName("BasicBoots").setTextureName("ITA:BasicBoots");
         AlloyBinder = new ItemAlloyBinder().setUnlocalizedName("AlloyBinder").setTextureName("ITA:AlloyBinder");
         Alloy = new ItemAlloy().setUnlocalizedName("Alloy").setTextureName("ITA:Alloy");
         Thruster = new ItemThruster().setUnlocalizedName("Thruster").setTextureName("ITA:Thruster");
@@ -223,7 +223,7 @@ public class ITA {
         NightVision = new ItemNightVision().setUnlocalizedName("Night Vision").setTextureName("ITA:NightVision");
         RocketThruster = new ItemRocketThruster().setUnlocalizedName("Rocket Thruster").setTextureName("ITA:RocketThruster");
         ShockAbsorber = new ItemShockAbsorber().setUnlocalizedName("Shock Absorber").setTextureName("ITA:ShockAbsorber");
-	}
+    }
 
     public static void RegisterRecipes() {
         //Register These here as new ItemBasicArmor() is called several times

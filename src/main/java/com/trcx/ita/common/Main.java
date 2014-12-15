@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.Side;
 //TODO In Game Documentation
 
 public class Main {
-	public static SimpleNetworkWrapper Network;
+    public static SimpleNetworkWrapper Network;
 
     @Instance(value = "ITA")
         public static Main instance;
@@ -35,7 +35,7 @@ public class Main {
             ITA.DefineItems();
             ITA.RegisterItems();
             ITA.RegisterTraits();
-        	ITA.RegisterMaterials();
+            ITA.RegisterMaterials();
             ITA.RegisterRecipes();
             Network = NetworkRegistry.INSTANCE.newSimpleChannel("ITAKeySync");
             Network.registerMessage(PacketKey.class, PacketKey.KeyMessage.class, 0, Side.SERVER);
