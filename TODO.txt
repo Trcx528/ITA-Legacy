@@ -1,5 +1,6 @@
 -Balance Resistance values (move resistance to be from 0-16 rather than 0-5)
--Cleanup NBT Tag names
+-Fix Weight
+-Fix Armor Value
 -Add jetpack particle effects
 -(T2) XP Power Consumer
 -Magnet

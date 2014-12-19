@@ -8,6 +8,8 @@ import com.trcx.ita.common.traits.BaseTrait;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
@@ -31,6 +33,7 @@ public class EventListener {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void materialTooltip(ItemTooltipEvent event) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             for (int id : OreDictionary.getOreIDs(event.itemStack)) {
@@ -68,10 +71,9 @@ public class EventListener {
             EntityPlayer player = event.player;
             PlayerProperties PP = new PlayerProperties(player);
             for (BaseTrait trait : PP.Traits.keySet()) {
-                trait.tick(PP.Traits.get(trait), player, TickCounter);
+                trait.tick(PP.Traits.get(trait), PP, TickCounter);
             }
             float speedModifier = Math.min((float) (PP.Weight - 1) / 10, 0.49F);
-            PP.regenFuel(!player.onGround);
             if (player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
                 player.moveFlying(0F, 1F, 0.00F - speedModifier);
             }
@@ -80,6 +82,8 @@ public class EventListener {
             } else if (player.stepHeight == 1.000528f) {
                 player.stepHeight = 0.5f;
             }
+            PP.regenFuel();
+            PP.save();
         }
     }
 }

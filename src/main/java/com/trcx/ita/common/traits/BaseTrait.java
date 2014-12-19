@@ -2,8 +2,8 @@ package com.trcx.ita.common.traits;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.trcx.ita.common.properties.BaseProperty;
+import com.trcx.ita.common.properties.PlayerProperties;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 
@@ -29,12 +29,12 @@ public class BaseTrait {
         this.specialProtections = specialProtections;
     }
 
-    public void tick(double traitWeight, EntityPlayer player, int counter) {
+    public void tick(double traitWeight, PlayerProperties pp, int counter) {
         if (potionEffects != null) {
             for (GenericPotionEffect effect : potionEffects) {
                 if ((counter % 20) == 1) {
                     if (rand.nextInt(2000) <= Math.floor(traitWeight)) {
-                        player.addPotionEffect(new PotionEffect(effect.effectID, effect.effectDuration, effect.potencyLevel));
+                        pp.player.addPotionEffect(new PotionEffect(effect.effectID, effect.effectDuration, effect.potencyLevel));
                     }
                 }
 

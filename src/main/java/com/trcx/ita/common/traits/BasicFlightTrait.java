@@ -8,7 +8,6 @@ import com.trcx.ita.common.properties.PlayerProperties;
 import com.trcx.ita.common.utility.KeyStates;
 import com.trcx.ita.common.utility.KeySync;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.text.DecimalFormat;
@@ -37,17 +36,16 @@ public class BasicFlightTrait extends BaseTrait {
     }
 
     @Override
-    public void tick(double tw, EntityPlayer player, int counter) {
+    public void tick(double tw, PlayerProperties pp, int counter) {
         KeyStates KeyState;
-        if (KeySync.PlayerKeyStates.containsKey(player.getDisplayName())) {
-            KeyState = KeySync.PlayerKeyStates.get(player.getDisplayName());
+        if (KeySync.PlayerKeyStates.containsKey(pp.player.getDisplayName())) {
+            KeyState = KeySync.PlayerKeyStates.get(pp.player.getDisplayName());
 
             //make additional thruster much more effective and nerf only 1 thruster
             double fuelFactor = tw < 0.6 ? 2.5 : tw;
             double traitWeight = tw * tw;
 
-            PlayerProperties playerProps = new PlayerProperties(player);
-            double climbRate = 0.04D * playerProps.Weight * traitWeight;
+            double climbRate = 0.04D * pp.Weight * traitWeight;
             double maxSpeed = SUGGESTED_MAXVERTICALSPEED;
 
             //allow a little flight no matter what
@@ -55,22 +53,22 @@ public class BasicFlightTrait extends BaseTrait {
             maxSpeed = Math.max(maxSpeed, 0.15);
 
             if (KeyState.FLY) {
-                if (player.motionY < -0.799D && playerProps.consumeFuel(fuelFactor*8)) { // make it kick on hard when falling
-                    player.motionY = Math.min(player.motionY + (climbRate * 8), maxSpeed);
-                    player.fallDistance = 0F;
-                } else if (playerProps.consumeFuel(fuelFactor)) { //kick on soft
-                    player.motionY = Math.min(player.motionY + climbRate, maxSpeed);
-                    player.fallDistance = 0F;
+                if (pp.player.motionY < -0.799D && pp.consumeFuel(fuelFactor*8)) { // make it kick on hard when falling
+                    pp.player.motionY = Math.min(pp.player.motionY + (climbRate * 8), maxSpeed);
+                    pp.player.fallDistance = 0F;
+                } else if (pp.consumeFuel(fuelFactor)) { //kick on soft
+                    pp.player.motionY = Math.min(pp.player.motionY + climbRate, maxSpeed);
+                    pp.player.fallDistance = 0F;
                 }
-            } else if (KeyState.HOVER && !player.onGround) {
-                if (KeyState.DESCEND && !player.onGround && playerProps.consumeFuel(fuelFactor)) {
-                    player.motionY = Math.max(player.motionY - 0.15, -0.4D);
-                    player.fallDistance = 0F;
-                } else if(playerProps.consumeFuel(fuelFactor)) {
+            } else if (KeyState.HOVER && !pp.player.onGround) {
+                if (KeyState.DESCEND && !pp.player.onGround && pp.consumeFuel(fuelFactor)) {
+                    pp.player.motionY = Math.max(pp.player.motionY - 0.15, -0.4D);
+                    pp.player.fallDistance = 0F;
+                } else if(pp.consumeFuel(fuelFactor)) {
                     // cubing the weight makes light materials fall even slower
                     // and heavy materials fall even faster
-                    player.motionY = -0.05 * (playerProps.Weight * playerProps.Weight * playerProps.Weight);
-                    player.fallDistance = 0F;
+                    pp.player.motionY = -0.05 * (pp.Weight * pp.Weight * pp.Weight);
+                    pp.player.fallDistance = 0F;
                 }
             }
         } else {
