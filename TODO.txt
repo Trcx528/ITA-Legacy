@@ -1,15 +1,17 @@
--Balance Resistance values (move resistance to be from 0-16 rather than 0-5)
--Fix Weight
+-Remove Resistance
+-Fix/rebalance Weight
 -Fix Armor Value
--Add jetpack particle effects
--(T2) XP Power Consumer
--Magnet
+-Decide and implement new crafting mechanic
+-Add armor/module install & config GUI
+-add wires
+
+Modules:
+-redo modules to be configurable
+-Magnet module
+-auto turret module
+-flash light module
+-armor provider module
+
+Low Priority:
 -Fix enchantment rendering on player
--Change modules to have no resistance but a power cost
--auto turret
--flash light
-
-
--Add Tier 3 (Powered Armor)
-  - Powered thruster
-  - Powered Armor Provider
+-Add jetpack particle effects
