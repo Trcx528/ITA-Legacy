@@ -27,14 +27,12 @@ public class Miscellaneous {
             returnProp.MaxDurability += prop.MaxDurability;
             returnProp.Enchantability += prop.Enchantability;
             returnProp.Weight += prop.Weight;
-            returnProp.Resistance += prop.Resistance;
             ColorHelper.addToColorMap(ColorMap, prop.ColorHex, 1D);
         }
         returnProp.ColorHex = ColorHelper.hexFromInt(ColorHelper.getAvgColor(ColorMap));
         if (props.size() != 0) {
             returnProp.Weight /= props.size();
             returnProp.Enchantability /= props.size();
-            returnProp.Resistance /= props.size();
             returnProp.MaxDurability /= props.size();
         }
         return returnProp;

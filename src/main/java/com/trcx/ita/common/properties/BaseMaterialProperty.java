@@ -11,8 +11,8 @@ public class BaseMaterialProperty extends BaseProperty{
     public Map<String, Integer> Traits = new HashMap<String, Integer>();
     public String OreDictionaryName;
 
-    public BaseMaterialProperty(String oreDictionaryName, double armorFactor, short enchantability, double weight, short MaxDurability, String Color, double Resistance){
-        super(oreDictionaryName, armorFactor, enchantability, weight, MaxDurability, Color, Resistance);
+    public BaseMaterialProperty(String oreDictionaryName, double armorFactor, short enchantability, double weight, short MaxDurability, String Color){
+        super(oreDictionaryName, armorFactor, enchantability, weight, MaxDurability, Color);
         this.OreDictionaryName = oreDictionaryName;
         this.Name = "";
         for (String namepart: oreDictionaryName.substring(5).split("(?=\\p{Upper})")){

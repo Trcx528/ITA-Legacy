@@ -45,7 +45,6 @@ public class EventListener {
                     event.toolTip.add(EnumChatFormatting.AQUA + "Enchantability: " + props.Enchantability);
                     event.toolTip.add(EnumChatFormatting.DARK_PURPLE +"Durability: " + props.MaxDurability);
                     event.toolTip.add(EnumChatFormatting.GRAY+"Weight: " + df.format(1 + props.Weight));
-                    event.toolTip.add(EnumChatFormatting.RED+"Resistance: " + df.format(props.Resistance));
                     for (String trait: props.Traits.keySet()){
                         event.toolTip.add(ITA.getTrait(trait).getToolTip(new BaseProperty(event.itemStack)));
                     }

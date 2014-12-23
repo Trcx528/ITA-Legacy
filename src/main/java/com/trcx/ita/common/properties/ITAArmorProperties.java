@@ -2,7 +2,6 @@ package com.trcx.ita.common.properties;
 
 import com.trcx.ita.common.item.ItemBasicArmor;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.traits.TraitNames;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -107,8 +106,6 @@ public class ITAArmorProperties extends BaseProperty {
         dataList.add(EnumChatFormatting.DARK_PURPLE + "Hitpoints: " + (this.MaxDurability - this.Durability) + "/" + this.MaxDurability);
         df = new DecimalFormat("#.##");
         dataList.add(EnumChatFormatting.GRAY + "Weight: " + df.format(1 + this.Weight) + "" + EnumChatFormatting.RESET);
-        if (this.Resistance != -1000D)
-            dataList.add(EnumChatFormatting.RED + "Resistance: " + df.format(this.Resistance));
         if (this.Invisible)
             dataList.add(EnumChatFormatting.WHITE + "" + EnumChatFormatting.ITALIC + "Invisible");
         if (this.MaxFuel > 0)

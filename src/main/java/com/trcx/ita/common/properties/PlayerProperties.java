@@ -38,10 +38,6 @@ public class PlayerProperties {
                     this.Fuel += props.RemainingFuel;
                     this.Regen += props.FuelRegenRate;
                     this.MaxFuel += props.MaxFuel;
-                    if (props.Resistance != -1000D) {
-                        this.Resistance += props.Resistance;
-                        resCount ++;
-                    }
                     for (String trait: props.Traits.keySet()){
                         addTrait(ITA.getTrait(trait), props.Traits.get(trait));
                     }

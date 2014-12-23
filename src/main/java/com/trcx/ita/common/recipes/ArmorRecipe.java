@@ -1,10 +1,8 @@
 package com.trcx.ita.common.recipes;
 
 import com.trcx.ita.common.item.CompoundMaterial;
-import com.trcx.ita.common.item.ItemThruster;
 import com.trcx.ita.common.properties.*;
 import com.trcx.ita.common.ITA;
-import com.trcx.ita.common.traits.BasicFlightTrait;
 import com.trcx.ita.common.utility.Miscellaneous;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -28,9 +26,6 @@ public class ArmorRecipe implements IRecipe {
         List<BaseProperty> BaseProps = new ArrayList<BaseProperty>();
         List<BaseProperty> MaterialList = new ArrayList<BaseProperty>();
 
-        double Resistance = 0D;
-        int ResistanceCount = 0;
-
         for (int i=0; i<9; i++) {
             if (inv.getStackInSlot(i) == null) {
                 nullSlots[i] = -1;
@@ -42,10 +37,6 @@ public class ArmorRecipe implements IRecipe {
                     CompoundMaterials.add(cm);
                     BaseProps.add(cmp);
                     MaterialList.add(cmp);
-                    if (inv.getStackInSlot(i).getItem() instanceof ItemThruster){
-                        Resistance += cmp.Resistance;
-                        ResistanceCount ++;
-                    }
                 } else {
                     int[] ids = OreDictionary.getOreIDs(inv.getStackInSlot(i));
                     for (int id : ids) {
@@ -99,9 +90,6 @@ public class ArmorRecipe implements IRecipe {
         //the helper function averaged durability for use, undo that
         ap.MaxDurability *= BaseProps.size();
         ap.applyTypeFactors();
-        ap.Resistance = -1000D;
-        if (ResistanceCount != 0)
-            ap.Resistance = Resistance/ResistanceCount;
         returnStack.getItem().setMaxDamage(ap.MaxDurability);
         if (ap.MaxFuel > 0)
             ap.RemainingFuel = ap.MaxFuel;

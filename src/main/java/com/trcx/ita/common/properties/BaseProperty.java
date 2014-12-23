@@ -24,7 +24,6 @@ public class BaseProperty {
     public double Weight = 0D;
     public short MaxDurability = 0;
     public String ColorHex = "#00AA00";
-    public double Resistance = 1.0;
     public String Name = "New Property";
 
     private static String NBTWEIGHT = "Weight";
@@ -33,7 +32,6 @@ public class BaseProperty {
     private static String NBTARMORFACTOR = "ArmorFactor";
     private static String NBTCOLOR = "color";
     private static String NBTDURABILITY = "MaxDurability";
-    private static String NBTRESISTANCE = "Resistance";
     private static String NBTNAME = "name";
 
 
@@ -43,7 +41,6 @@ public class BaseProperty {
         this.Weight = 0D;
         this.MaxDurability = 0;
         this.ColorHex = "#00AA00";
-        this.Resistance = 0D;
         this.Name = "Zeroed";
     }
 
@@ -54,7 +51,6 @@ public class BaseProperty {
         this.Weight = bp.Weight;
         this.MaxDurability = bp.MaxDurability;
         this.ColorHex = bp.ColorHex;
-        this.Resistance = bp.Resistance;
         this.Name = bp.Name;
         this.Traits = bp.Traits;
     }
@@ -67,7 +63,6 @@ public class BaseProperty {
         returnNBT.setDouble(NBTARMORFACTOR, this.ArmorFactor);
         returnNBT.setInteger(NBTCOLOR, ColorHelper.intFromHex(this.ColorHex));
         returnNBT.setShort(NBTDURABILITY, this.MaxDurability);
-        returnNBT.setDouble(NBTRESISTANCE, this.Resistance);
         returnNBT.setString(NBTNAME, this.Name);
         NBTTagCompound traits = new NBTTagCompound();
         for (String trait: this.Traits.keySet()){
@@ -87,7 +82,6 @@ public class BaseProperty {
             this.ArmorFactor = nbt.getDouble(NBTARMORFACTOR);
             this.ColorHex = ColorHelper.hexFromInt(nbt.getInteger(NBTCOLOR));
             this.MaxDurability = nbt.getShort(NBTDURABILITY);
-            this.Resistance = nbt.getDouble(NBTRESISTANCE);
             this.Name = nbt.getString(NBTNAME);
             NBTTagCompound traits = nbt.getCompoundTag(NBTTRAITS);
             Set<String> keys = traits.func_150296_c();
@@ -110,8 +104,6 @@ public class BaseProperty {
         if (this.MaxDurability > 0)
             dataList.add(EnumChatFormatting.DARK_PURPLE + "Durability: " + this.MaxDurability);
         dataList.add(EnumChatFormatting.GRAY + "Weight: " + df.format(1 + this.Weight));
-        if (this.Resistance > 0D)
-            dataList.add(EnumChatFormatting.RED + "Resistance: " + df.format(this.Resistance));
         for (String trait: this.Traits.keySet()){
             String ttt = ITA.getTrait(trait).getToolTip(null);
             if (ttt != null)
@@ -127,13 +119,12 @@ public class BaseProperty {
         }
     }
 
-    public BaseProperty(String Name, double armorFactor, short enchantability, double weight, short MaxDurability, String ColorHex, double Resistance) {
+    public BaseProperty(String Name, double armorFactor, short enchantability, double weight, short MaxDurability, String ColorHex) {
         this.Name = Name;
         this.ColorHex = ColorHex;
         this.ArmorFactor = armorFactor;
         this.Enchantability = enchantability;
         this.Weight = weight;
         this.MaxDurability = MaxDurability;
-        this.Resistance = Resistance;
     }
 }

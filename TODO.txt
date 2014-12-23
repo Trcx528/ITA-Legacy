@@ -1,4 +1,3 @@
--Remove Resistance
 -Fix/rebalance Weight
 -Fix Armor Value
 -Decide and implement new crafting mechanic
