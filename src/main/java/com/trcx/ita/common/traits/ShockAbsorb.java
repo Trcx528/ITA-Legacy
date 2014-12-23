@@ -29,10 +29,10 @@ public class ShockAbsorb extends BaseTrait {
             if (pp.Traits.containsKey(ITA.getTrait(TraitNames.ABILITY_SHOCK_ABSORB))) {
                 if (e.distance > 3D) { // don't consume energy if not needed
                     double traitWeight = pp.Traits.get(ITA.getTrait(TraitNames.ABILITY_SHOCK_ABSORB));
-                    double energyDesired = (SHOCK_ABSORB_ENERGY * e.distance * pp.Resistance)/ traitWeight;
+                    double energyDesired = (SHOCK_ABSORB_ENERGY * e.distance)/ traitWeight;
                     double energyToConsume = Math.min(pp.Fuel, energyDesired);
                     double ratio = energyToConsume / energyDesired;
-                    pp.consumeFuel(energyToConsume / pp.Resistance);
+                    pp.consumeFuel(energyToConsume);
                     e.distance -= e.distance * ratio;
                 }
             }

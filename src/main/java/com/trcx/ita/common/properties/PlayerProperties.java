@@ -19,7 +19,6 @@ public class PlayerProperties {
     public double MaxFuel = 0D;
     public double Regen = 0D;
     public boolean StepAssist = false;
-    public double Resistance = 0D;
     public EntityPlayer player;
 
     private Map<ITAArmorProperties, ItemStack> armorMap = new HashMap<ITAArmorProperties, ItemStack>();
@@ -27,7 +26,6 @@ public class PlayerProperties {
 
     public PlayerProperties(EntityPlayer player){
         this.player = player;
-        int resCount = 0;
         for (int i = 0; i < 4; i++) {
             ItemStack is = player.getCurrentArmor(i);
             if (is != null) {
@@ -49,11 +47,8 @@ public class PlayerProperties {
         }
         this.Weight /= 4;
         this.Weight ++ ;
-        this.Resistance /= resCount;
         if (Double.isNaN(this.Fuel))
             this.Fuel = 0;
-        if (Double.isNaN(this.Resistance))
-            this.Resistance = 1D;
     }
 
     private void addTrait(BaseTrait Trait, Double Weight){
@@ -73,7 +68,6 @@ public class PlayerProperties {
     }
 
     public boolean consumeFuel(double amount){
-        amount *= this.Resistance;
         if (amount > this.Fuel) {
             return false;
         } else {
@@ -84,9 +78,8 @@ public class PlayerProperties {
 
 
     public void regenFuel() {
-        if (this.Regen > 0 && ! Double.isNaN(this.Resistance)) {
+        if (this.Regen > 0) {
             double regenRemaining = this.Regen;
-            regenRemaining += 1 - this.Resistance;
             if (this.Fuel <= 10 || !player.onGround)
                 regenRemaining *= 0.05; // cooldown
             this.Fuel = Math.min(this.Fuel + regenRemaining, this.MaxFuel);
